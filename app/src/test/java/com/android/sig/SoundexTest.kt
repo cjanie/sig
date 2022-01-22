@@ -6,7 +6,7 @@ import org.junit.Test
 class Soundex {
 
     fun encode(word: String): String {
-        return word
+        return word + "000"
     }
 }
 
@@ -36,6 +36,13 @@ class SoundexTest {
     fun soundexEncodingRetainsSoleLetterOfOneLetterWord() {
         val soundex = Soundex()
         val encoded = soundex.encode("A")
-        assertEquals("A", encoded)
+        assertEquals("A000", encoded)
+    }
+
+    @Test
+    fun soundexEncodingPadsWithZerosToEnsureThreeDigits() {
+        val soundex = Soundex()
+        val encoded = soundex.encode("I")
+        assertEquals("I000", encoded)
     }
 }
