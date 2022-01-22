@@ -7,11 +7,25 @@ import org.junit.Test
 class Soundex {
 
     fun encode(word: String): String {
-        return this.zeroPad(word)
+        return this.zeroPad(this.head(word) + this.encodedDigits(word))
     }
 
-    private fun zeroPad(word: String): String {
-        return word + "000"
+    private fun head(word: String): String {
+        return word.substring(0, 1)
+    }
+
+    private fun encodedDigits(word: String): String {
+        if(word.length > 1)
+            return "1"
+        return ""
+    }
+
+    private fun zeroPad(headPlusEncodedDigits: String): String {
+        val numberOfZerosNeeded = 4 - headPlusEncodedDigits.length
+        var zeros = ""
+        for(i in 1..numberOfZerosNeeded)
+            zeros += "0"
+        return headPlusEncodedDigits + zeros
     }
 }
 
@@ -50,5 +64,10 @@ class SoundexTest {
     @Test
     fun soundexEncodingPadsWithZerosToEnsureThreeDigits() {
         assertEquals("I000", this.soundex.encode("I"))
+    }
+
+    @Test
+    fun soundexEncodingReplacesConsonantsWithAppropriateDigits() {
+        assertEquals("A100", this.soundex.encode("Ab"))
     }
 }
