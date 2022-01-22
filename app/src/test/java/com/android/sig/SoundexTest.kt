@@ -3,6 +3,7 @@ package com.android.sig
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
+
 class Soundex {
 
     fun encode(word: String): String {
@@ -14,6 +15,8 @@ class Soundex {
     }
 }
 
+// Default Junit 5 test instance is @TestInstance(TestInstance.Lifecycle.PER_METHOD)
+// Otherwise add annotation @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SoundexTest {
 
     /*
@@ -36,17 +39,18 @@ class SoundexTest {
     * 4. Stop when you have a letter and three digits. Zero-pad if needed.
     */
 
+    // Fixture instantiated before each test since default test instance is per method
+    private val soundex = Soundex()
+
     @Test
     fun soundexEncodingRetainsSoleLetterOfOneLetterWord() {
-        val soundex = Soundex()
-        val encoded = soundex.encode("A")
+        val encoded = this.soundex.encode("A")
         assertEquals("A000", encoded)
     }
 
     @Test
     fun soundexEncodingPadsWithZerosToEnsureThreeDigits() {
-        val soundex = Soundex()
-        val encoded = soundex.encode("I")
+        val encoded = this.soundex.encode("I")
         assertEquals("I000", encoded)
     }
 }
