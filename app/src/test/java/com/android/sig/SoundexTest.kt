@@ -1,8 +1,14 @@
 package com.android.sig
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class Soundex {}
+class Soundex {
+
+    fun encode(word: String): String {
+        return word
+    }
+}
 
 class SoundexTest {
 
@@ -28,6 +34,8 @@ class SoundexTest {
 
     @Test
     fun soundexEncodingRetainsSoleLetterOfOneLetterWord() {
-        val soundex: Soundex
+        val soundex = Soundex()
+        val encoded = soundex.encode("A")
+        assertEquals("A", encoded)
     }
 }
