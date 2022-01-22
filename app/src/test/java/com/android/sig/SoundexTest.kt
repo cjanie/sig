@@ -44,13 +44,11 @@ class SoundexTest {
 
     @Test
     fun soundexEncodingRetainsSoleLetterOfOneLetterWord() {
-        val encoded = this.soundex.encode("A")
-        assertEquals("A000", encoded)
+        assertEquals("A000", this.soundex.encode("A"))
     }
 
     @Test
     fun soundexEncodingPadsWithZerosToEnsureThreeDigits() {
-        val encoded = this.soundex.encode("I")
-        assertEquals("I000", encoded)
+        assertEquals("I000", this.soundex.encode("I"))
     }
 }
