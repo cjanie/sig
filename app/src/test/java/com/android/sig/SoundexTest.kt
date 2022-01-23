@@ -22,7 +22,7 @@ class Soundex {
         return ""
     }
 
-    private fun encodedDigit(letter: Char): String {
+    private fun encodedDigit(character: Char): String {
         val encodings = HashMap<Char, String>()
         // b, f, p, v: 1
         encodings.put('b', "1")
@@ -49,7 +49,9 @@ class Soundex {
         // r: 6
         encodings.put('r', "6")
 
-        return encodings.getValue(letter)
+        if(encodings.containsKey(character))
+            return encodings.getValue(character)
+        return "" // case what if character is non alphabetic
     }
 
     private fun zeroPad(headPlusEncodedDigits: String): String {
@@ -101,5 +103,11 @@ class SoundexTest {
     @Test
     fun soundexEncodingReplacesConsonantsWithAppropriateDigits() {
         assertEquals("C600", this.soundex.encode("Cr"))
+    }
+
+    // What if key is missing in the map ? to prevent bugs
+    @Test
+    fun soundexEncodingIgnoresNonAlphabetic() {
+        assertEquals("A000", this.soundex.encode("A#"))
     }
 }
