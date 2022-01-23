@@ -6,6 +6,8 @@ import org.junit.Test
 
 class Soundex {
 
+    private val MAX_CODE_LENGHT = 4
+
     fun encode(word: String): String {
         return this.zeroPad(this.head(word) + this.encodedDigits(word))
     }
@@ -16,12 +18,16 @@ class Soundex {
 
     private fun encodedDigits(word: String): String {
         if(word.length > 1)
-            return "1"
+            return encodedDigit()
         return ""
     }
 
+    private fun encodedDigit(): String {
+        return "1"
+    }
+
     private fun zeroPad(headPlusEncodedDigits: String): String {
-        val numberOfZerosNeeded = 4 - headPlusEncodedDigits.length
+        val numberOfZerosNeeded = this.MAX_CODE_LENGHT - headPlusEncodedDigits.length
         var zeros = ""
         for(i in 1..numberOfZerosNeeded)
             zeros += "0"
