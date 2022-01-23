@@ -23,31 +23,26 @@ class Soundex {
     }
 
     private fun encodedDigit(character: Char): String {
-        val encodings = HashMap<Char, String>()
-        // b, f, p, v: 1
-        encodings.put('b', "1")
-        encodings.put('f', "1")
-        encodings.put('p', "1")
-        encodings.put('v', "1")
-        // c, g, j, k, q, s, x, z: 2
-        encodings.put('c', "2")
-        encodings.put('g', "2")
-        encodings.put('j', "2")
-        encodings.put('k', "2")
-        encodings.put('q', "2")
-        encodings.put('s', "2")
-        encodings.put('x', "2")
-        encodings.put('z', "2")
-        // d, t: 3
-        encodings.put('d', "3")
-        encodings.put('t', "3")
-        // l: 4
-        encodings.put('l', "4")
-        // m, n: 5
-        encodings.put('m', "5")
-        encodings.put('n', "5")
-        // r: 6
-        encodings.put('r', "6")
+        val encodings = mapOf(
+            'b' to "1",
+            'f' to "1",
+            'p' to "1",
+            'v' to "1",
+            'c' to "2",
+            'g' to "2",
+            'j' to "2",
+            'k' to "2",
+            'q' to "2",
+            's' to "2",
+            'x' to "2",
+            'z' to "2",
+            'd' to "3",
+            't' to "3",
+            'l' to "4",
+            'm' to "5",
+            'n' to "5",
+            'r' to "6"
+        )
 
         if(encodings.containsKey(character))
             return encodings.getValue(character)
