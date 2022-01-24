@@ -23,9 +23,15 @@ class Soundex {
     private fun encodedDigits(tail: String): String {
         var encoding = ""
         for(i in 0..tail.length - 1) {
+            if(this.isComplete(encoding))
+                break
             encoding += encodedDigit(tail[i])
         }
         return encoding
+    }
+
+    private fun isComplete(encoding: String): Boolean {
+        return encoding.length == this.MAX_CODE_LENGHT - 1
     }
 
     private fun encodedDigit(character: Char): String {
@@ -117,4 +123,8 @@ class SoundexTest {
         assertEquals("A234", this.soundex.encode("Acdl"))
     }
 
+    @Test
+    fun soundexEncodingLimitsLengthToFourCharacters() {
+        assertEquals(4, this.soundex.encode("Dcdlb").length)
+    }
 }
