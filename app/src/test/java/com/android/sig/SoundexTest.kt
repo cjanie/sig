@@ -9,17 +9,23 @@ class Soundex {
     private val MAX_CODE_LENGHT = 4
 
     fun encode(word: String): String {
-        return this.zeroPad(this.head(word) + this.encodedDigits(word))
+        return this.zeroPad(this.head(word) + this.encodedDigits(tail(word)))
     }
 
     private fun head(word: String): String {
         return word.substring(0, 1)
     }
 
-    private fun encodedDigits(word: String): String {
-        if(word.length > 1)
-            return encodedDigit(word[1])
-        return ""
+    private fun tail(word: String): String {
+        return word.substring(1)
+    }
+
+    private fun encodedDigits(tail: String): String {
+        var encoding = ""
+        for(i in 0..tail.length - 1) {
+            encoding += encodedDigit(tail[i])
+        }
+        return encoding
     }
 
     private fun encodedDigit(character: Char): String {
@@ -105,4 +111,10 @@ class SoundexTest {
     fun soundexEncodingIgnoresNonAlphabetic() {
         assertEquals("A000", this.soundex.encode("A#"))
     }
+
+    @Test
+    fun soundexEncodingReplacesMultipleConsonantsWithDigits() {
+        assertEquals("A234", this.soundex.encode("Acdl"))
+    }
+
 }
