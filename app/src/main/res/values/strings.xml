@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">SIG</string>
+    <string name="push_point">Push Point</string>
+    <string name="ruin">Ruin</string>
+    <string name="castel">Castel</string>
+    <string name="wall">Wall</string>
+    <string name="historic_site">Historic Site</string>
+    <string name="archeologic_site">Archeologic Site</string>
+    <string name="other_type">Other Type</string>
+    <string name="next">Next</string>
+    <string name="point_name">Point Name</string>
+    <string name="project">Project</string>
+    <string name="description">Description</string>
 </resources>

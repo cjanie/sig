@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/big_margin"
+    >
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/ruin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ruin" />
+
+        <RadioButton
+            android:id="@+id/castel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/castel" />
+
+        <RadioButton
+            android:id="@+id/wall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wall" />
+
+        <RadioButton
+            android:id="@+id/historic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/historic_site" />
+
+        <RadioButton
+            android:id="@+id/archaeologic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/archeologic_site" />
+
+        <RadioButton
+            android:id="@+id/other_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/other_type" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/big_margin"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/button_type_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
