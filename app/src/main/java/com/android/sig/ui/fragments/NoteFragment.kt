@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.android.sig.R
 import com.android.sig.RecordViewModel
 
-class NoteFragment: Fragment() {
+class NoteFragment: Fragment(), View.OnClickListener {
 
     val sharedViewModel: RecordViewModel by activityViewModels()
 
@@ -35,5 +35,11 @@ class NoteFragment: Fragment() {
         this.note = root.findViewById(R.id.note_edit)
         this.buttonSave = root.findViewById(R.id.button_save)
         return root
+    }
+
+    override fun onClick(p0: View?) {
+        if(p0 == buttonSave) {
+
+        }
     }
 }
