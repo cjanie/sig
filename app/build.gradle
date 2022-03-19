@@ -46,4 +46,7 @@ dependencies {
     // Junit 5 tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+
+    // For activityViewModels()
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
 }
