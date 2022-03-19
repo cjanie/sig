@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.android.sig.R
 import com.android.sig.RecordViewModel
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 
 class StartFragment: Fragment() {
 
@@ -22,4 +23,9 @@ class StartFragment: Fragment() {
         return root
     }
 
+    fun recordPoint(longitude: Double, latitude: Double) {
+        this.sharedViewModel.setLongitude(longitude)
+        this.sharedViewModel.setLatitude(latitude)
+        findNavController().navigate(R.id.point_name)
+    }
 }

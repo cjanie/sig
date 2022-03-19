@@ -6,33 +6,37 @@ import kotlin.math.absoluteValue
 
 class RecordViewModel: ViewModel() {
 
-    private val latitude = MutableLiveData<Double>()
+    private val _latitude = MutableLiveData<Double>()
 
-    private val longitude = MutableLiveData<Double>()
+    private val _longitude = MutableLiveData<Double>()
 
-    private val pointName = MutableLiveData<String>()
+    private val _pointName = MutableLiveData<String>()
 
-    private val type = MutableLiveData<String>()
+    private val _type = MutableLiveData<String>()
 
-    private val note = MutableLiveData<String>()
+    private val _note = MutableLiveData<String>()
 
     fun setLatitude(latitude: Double) {
-        this.latitude.value = latitude
+        this._latitude.value = latitude
     }
 
     fun setLongitude(longitude: Double) {
-        this.longitude.value = longitude
+        this._longitude.value = longitude
     }
 
     fun setPointName(pointName: String) {
-        this.pointName.value = pointName
+        this._pointName.value = pointName
     }
 
     fun setType(type: String) {
-        this.type.value = type
+        this._type.value = type
     }
 
     fun setNote(note: String) {
-        this.note.value = note
+        this._note.value = note
+    }
+
+    fun hasNoNameSet(): Boolean {
+        return _pointName.value.isNullOrEmpty()
     }
 }

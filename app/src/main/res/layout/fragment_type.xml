@@ -9,7 +9,7 @@
     >
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/type_radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
         android:layout_height="1dp"
         android:layout_marginVertical="@dimen/big_margin"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/type_radioGroup" />
 
     <TextView
         android:id="@+id/type_point_name"
@@ -78,7 +78,7 @@
         tools:layout_editor_absoluteX="54dp">
 
         <Button
-            android:id="@+id/button_add_note"
+            android:id="@+id/button_type_add_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/big_margin"
@@ -90,7 +90,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button_save"
+            android:id="@+id/button_type_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/big_margin"
