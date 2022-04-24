@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">SIG</string>
     <string name="record_point">Record Point</string>
+    <string name="longitude_abbrev">Long</string>
+    <string name="latitude_abbrev">Lat</string>
+    <string name="location">Location</string>
     <string name="ruin">Ruin</string>
     <string name="castel">Castel</string>
     <string name="wall">Wall</string>
@@ -14,4 +17,6 @@
     <string name="add_note">Add Note</string>
     <string name="note">Note</string>
     <string name="save">Save</string>
+
+    <string name="map">Map</string>
 </resources>

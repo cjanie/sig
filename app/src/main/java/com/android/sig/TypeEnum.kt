@@ -1,7 +1,7 @@
 package com.android.sig
 
-enum class TypeOptionEnum {
-    UNDEFINED,
+enum class TypeEnum {
+
     RUIN,
     CASTEL,
     WALL,
