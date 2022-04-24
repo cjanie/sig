@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/start_fragment">
+
+    <fragment
+        android:id="@+id/start_fragment"
+        android:name="com.android.sig.ui.fragments.StartFragment">
+        <action
+            android:id="@+id/action_startFragment_to_nameFragment"
+            app:destination="@+id/name_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/name_fragment"
+        android:name="com.android.sig.ui.fragments.NameFragment">
+        <action
+            android:id="@+id/action_nameFragment_to_typeFragment"
+            app:destination="@+id/type_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/type_fragment"
+        android:name="com.android.sig.ui.fragments.TypeFragment">
+        <action
+            android:id="@+id/action_typeFragment_to_noteFragment"
+            app:destination="@id/note_fragment" />
+        <action
+            android:id="@+id/action_typeFragment_to_startFragment"
+            app:destination="@+id/start_fragment" />
+        <action
+            android:id="@+id/action_typeFragment_to_nameFragment"
+            app:destination="@+id/name_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/note_fragment"
+        android:name="com.android.sig.ui.fragments.NoteFragment">
+        <action
+            android:id="@+id/action_noteFragment_to_startFragment"
+            app:destination="@+id/start_fragment"/>
+        <action
+            android:id="@+id/action_noteFragment_to_nameFragment"
+            app:destination="@+id/name_fragment"/>
+    </fragment>
+
+</navigation>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/big_margin"
+    >
+
+    <RadioGroup
+        android:id="@+id/type_radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/ruin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ruin" />
+
+        <RadioButton
+            android:id="@+id/castel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/castel" />
+
+        <RadioButton
+            android:id="@+id/wall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wall" />
+
+        <RadioButton
+            android:id="@+id/historic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/historic_site" />
+
+        <RadioButton
+            android:id="@+id/archaeologic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/archeologic_site" />
+
+        <RadioButton
+            android:id="@+id/other_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/other_type" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/big_margin"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/type_radioGroup" />
+
+    <TextView
+        android:id="@+id/type_point_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/big_margin"
+        android:text="@string/point_name"
+        android:textAlignment="textEnd"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/type_point_name"
+        tools:layout_editor_absoluteX="54dp">
+
+        <Button
+            android:id="@+id/button_type_add_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/big_margin"
+            android:layout_weight="1"
+            android:text="@string/add_note"
+            android:layout_marginRight="@dimen/margin"
+            app:layout_constraintBottom_toTopOf="@+id/button_type_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_type_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/big_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/teal_700"
+            android:text="@string/save"
+            android:layout_marginLeft="@dimen/margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
