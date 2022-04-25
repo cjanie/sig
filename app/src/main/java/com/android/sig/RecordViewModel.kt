@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-import com.android.sig.exceptions.NoAvailableGeolocationException
+import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 import kotlin.jvm.Throws
 
 

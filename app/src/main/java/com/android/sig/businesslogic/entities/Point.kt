@@ -1,4 +1,4 @@
-package com.android.sig.entities
+package com.android.sig.businesslogic.entities
 
 import com.android.sig.TypeEnum
 

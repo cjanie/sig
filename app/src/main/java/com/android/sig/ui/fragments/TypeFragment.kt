@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.android.sig.R
 import com.android.sig.RecordViewModel
 import com.android.sig.TypeEnum
-import com.android.sig.exceptions.NoAvailableGeolocationException
+import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 
 class TypeFragment: Fragment() {
 
