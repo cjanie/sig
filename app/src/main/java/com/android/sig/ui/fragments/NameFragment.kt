@@ -13,11 +13,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.R
-import com.android.sig.RecordViewModel
+import com.android.sig.SavePointViewModel
 
 class NameFragment: Fragment(), View.OnClickListener {
 
-    private val sharedViewModel: RecordViewModel by activityViewModels()
+    private val sharedViewModel: SavePointViewModel by activityViewModels()
 
     private lateinit var longitude: TextView
 

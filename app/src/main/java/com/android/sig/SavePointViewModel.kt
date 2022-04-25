@@ -8,7 +8,7 @@ import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 import kotlin.jvm.Throws
 
 
-class RecordViewModel: ViewModel() {
+class SavePointViewModel: ViewModel() {
 
     private val _longitude = MutableLiveData<Double>()
     val longitude: LiveData<Double> = _longitude
@@ -59,7 +59,7 @@ class RecordViewModel: ViewModel() {
     }
 
     @Throws(NoAvailableGeolocationException::class)
-    fun saveRecord() {
+    fun savePoint() {
 
     }
 

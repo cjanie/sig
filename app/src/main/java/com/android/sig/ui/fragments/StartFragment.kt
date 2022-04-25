@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.android.sig.R
-import com.android.sig.RecordViewModel
+import com.android.sig.SavePointViewModel
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,7 +19,7 @@ import com.google.android.gms.location.LocationServices
 
 class StartFragment: Fragment() {
 
-    private val sharedViewModel: RecordViewModel by activityViewModels()
+    private val sharedViewModel: SavePointViewModel by activityViewModels()
 
     private lateinit var point: ImageView
 

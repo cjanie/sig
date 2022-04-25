@@ -14,13 +14,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.R
-import com.android.sig.RecordViewModel
+import com.android.sig.SavePointViewModel
 import com.android.sig.TypeEnum
 import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 
 class NoteFragment: Fragment() {
 
-    val sharedViewModel: RecordViewModel by activityViewModels()
+    val sharedViewModel: SavePointViewModel by activityViewModels()
 
     private lateinit var pointName: TextView
 
@@ -56,7 +56,7 @@ class NoteFragment: Fragment() {
         this.buttonSave.setOnClickListener(View.OnClickListener {
             this.recordNote()
             try {
-                this.sharedViewModel.saveRecord()
+                this.sharedViewModel.savePoint()
                 this.sharedViewModel.resetRecord()
                 this.navigate(R.id.action_noteFragment_to_startFragment)
             } catch (e: NoAvailableGeolocationException) {
