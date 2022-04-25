@@ -3,9 +3,8 @@ package com.android.sig
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.sig.entities.Geolocation
-import com.android.sig.entities.Point
-import com.android.sig.exceptions.HasNoNameSetException
+
+import com.android.sig.exceptions.NoAvailableGeolocationException
 import kotlin.jvm.Throws
 
 
@@ -59,19 +58,8 @@ class RecordViewModel: ViewModel() {
         this._note.value = ""
     }
 
-    @Throws(HasNoNameSetException::class)
+    @Throws(NoAvailableGeolocationException::class)
     fun saveRecord() {
-        if(this._pointName.value.isNullOrEmpty())
-            throw HasNoNameSetException();
-        if(this._longitude.value != null && this._latitude.value != null) {
-            val point: Point = Point(
-                    Geolocation(this._longitude.value!!, this._latitude.value!!),
-                    this._pointName.value!!,
-                    this._type.value,
-                    this._note.value
-            )
-            System.out.println("Point saved: " + point.geolocation.latitude + " " + point.geolocation.longitude + " " + point.name + " " + point.type + " " + point.note)
-        }
 
     }
 

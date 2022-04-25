@@ -2,8 +2,4 @@ package com.android.sig.entities
 
 import com.android.sig.TypeEnum
 
-class Point(val geolocation: Geolocation, val name: String, val type: TypeEnum?, val note: String?) {
-
-
-
-}
+class Point(val latitude: Double, val longitude: Double, name: String?, type: TypeEnum?, note: String?)

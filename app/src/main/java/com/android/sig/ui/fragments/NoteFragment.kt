@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.android.sig.R
 import com.android.sig.RecordViewModel
 import com.android.sig.TypeEnum
-import com.android.sig.exceptions.HasNoNameSetException
+import com.android.sig.exceptions.NoAvailableGeolocationException
 
 class NoteFragment: Fragment() {
 
@@ -59,7 +59,7 @@ class NoteFragment: Fragment() {
                 this.sharedViewModel.saveRecord()
                 this.sharedViewModel.resetRecord()
                 this.navigate(R.id.action_noteFragment_to_startFragment)
-            } catch (e: HasNoNameSetException) {
+            } catch (e: NoAvailableGeolocationException) {
                 Toast.makeText(this.context, "save: " + e.javaClass.name, Toast.LENGTH_LONG).show()
             }
         })
