@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SIG</string>
+    <string name="app_name">GIS</string>
     <string name="record_point">Record Point</string>
     <string name="longitude_abbrev">Long</string>
     <string name="latitude_abbrev">Lat</string>

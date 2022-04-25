@@ -3,6 +3,8 @@
     <dimen name="big_point">200dp</dimen>
     <dimen name="big_text">28dp</dimen>
     <dimen name="title">16dp</dimen>
+    <dimen name="big_title">44dp</dimen>
     <dimen name="big_margin">16dp</dimen>
     <dimen name="margin">8dp</dimen>
+    <dimen name="nav_view_header_size">200dp</dimen>
 </resources>

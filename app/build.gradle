@@ -4,13 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "29.0.3"
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.android.sig"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -36,11 +35,11 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     // Junit 5 tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
@@ -48,19 +47,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    // For Navigation
-    def nav_version = "2.3.5"
-
-    // For activityViewModels()
+    // Navigation, activityViewModels()
+    def nav_version = '2.4.2'
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
 
     // For FusedLocation
-    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     // For Google map
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
+    // BLUR VIEW
+    implementation 'com.eightbitlab:blurview:1.6.1'
 }

@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/big_margin"
-    >
+    android:layout_margin="@dimen/big_margin">
 
     <RadioGroup
         android:id="@+id/type_radioGroup"
@@ -19,37 +18,50 @@
             android:id="@+id/ruin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ruin" />
+            android:text="@string/ruin"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
 
         <RadioButton
             android:id="@+id/castel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/castel" />
+            android:text="@string/castel"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
 
         <RadioButton
             android:id="@+id/wall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/wall" />
+            android:text="@string/wall"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
 
         <RadioButton
             android:id="@+id/historic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/historic_site" />
+            android:text="@string/historic_site"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
 
         <RadioButton
             android:id="@+id/archaeologic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/archeologic_site" />
+            android:text="@string/archeologic_site"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
 
         <RadioButton
             android:id="@+id/other_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/other_type" />
+            android:text="@string/other_type"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white" />
+
     </RadioGroup>
 
     <View
@@ -57,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="@dimen/big_margin"
-        android:background="?android:attr/listDivider"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/type_radioGroup" />
 
     <TextView
@@ -66,6 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/big_margin"
         android:text="@string/point_name"
+        android:textColor="@color/white"
         android:textAlignment="textEnd"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 

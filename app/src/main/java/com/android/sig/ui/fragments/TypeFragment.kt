@@ -79,7 +79,6 @@ class TypeFragment: Fragment() {
                 this.navigate(R.id.action_typeFragment_to_startFragment)
             } catch (e: HasNoNameSetException) {
                 Toast.makeText(this.context, "Save: " + e.javaClass.name, Toast.LENGTH_LONG).show()
-                this.navigate(R.id.action_typeFragment_to_nameFragment)
             }
 
         })
