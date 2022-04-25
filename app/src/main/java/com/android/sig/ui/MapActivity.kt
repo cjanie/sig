@@ -1,10 +1,8 @@
-package com.android.sig.ui.fragments
+package com.android.sig.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.AttributeSet
-import android.view.View
+
 import androidx.appcompat.app.AppCompatActivity
 import com.android.sig.R
 import com.google.android.gms.maps.GoogleMap
@@ -78,6 +76,5 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onLowMemory()
         this.mapView.onLowMemory()
     }
-
 
 }

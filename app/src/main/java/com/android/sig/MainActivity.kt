@@ -1,14 +1,13 @@
 package com.android.sig
 
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import com.android.sig.ui.fragments.MapActivity
+import com.android.sig.ui.MapActivity
 import com.google.android.material.navigation.NavigationView
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
