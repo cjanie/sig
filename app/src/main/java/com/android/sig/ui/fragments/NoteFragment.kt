@@ -60,7 +60,6 @@ class NoteFragment: Fragment() {
                 this.sharedViewModel.resetRecord()
                 this.navigate(R.id.action_noteFragment_to_startFragment)
             } catch (e: HasNoNameSetException) {
-                this.navigate(R.id.action_noteFragment_to_nameFragment)
                 Toast.makeText(this.context, "save: " + e.javaClass.name, Toast.LENGTH_LONG).show()
             }
         })

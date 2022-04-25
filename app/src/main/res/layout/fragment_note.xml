@@ -11,12 +11,12 @@
         android:id="@+id/note_point_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_margin"
         android:textAlignment="textEnd"
         android:textSize="@dimen/title"
-        app:layout_constraintBottom_toTopOf="@+id/note_point_type"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/note_point_type"
@@ -24,9 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/big_margin"
         android:textAlignment="textEnd"
-        app:layout_constraintBottom_toTopOf="@+id/note_edit"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_point_name" />
 
     <EditText
         android:id="@+id/note_edit"
@@ -34,12 +35,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
         android:hint="@string/note"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/note_point_type" />
 
     <Button
         android:id="@+id/button_save"

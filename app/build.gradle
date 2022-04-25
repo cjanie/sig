@@ -60,4 +60,6 @@ dependencies {
     // For Google map
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
+    // BLUR VIEW
+    implementation 'com.eightbitlab:blurview:1.6.1'
 }

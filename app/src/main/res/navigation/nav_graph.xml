@@ -30,9 +30,6 @@
         <action
             android:id="@+id/action_typeFragment_to_startFragment"
             app:destination="@+id/start_fragment" />
-        <action
-            android:id="@+id/action_typeFragment_to_nameFragment"
-            app:destination="@+id/name_fragment"/>
     </fragment>
 
     <fragment
@@ -41,9 +38,6 @@
         <action
             android:id="@+id/action_noteFragment_to_startFragment"
             app:destination="@+id/start_fragment"/>
-        <action
-            android:id="@+id/action_noteFragment_to_nameFragment"
-            app:destination="@+id/name_fragment"/>
     </fragment>
 
 </navigation>
