@@ -16,6 +16,6 @@ class SavePointUseCase(val savePointGateWay: SavePointGateWay) {
             throw NoAvailableGeolocationException()
         if(type == null)
             throw UndefinedTypeException()
-        return Point(latitude, longitude, name, type, note)
+        return Point(null, latitude, longitude, name, type, note)
     }
 }
