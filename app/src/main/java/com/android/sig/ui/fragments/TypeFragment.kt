@@ -13,13 +13,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.R
-import com.android.sig.SavePointViewModel
+import com.android.sig.ui.SharedViewModel
 import com.android.sig.TypeEnum
-import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 
 class TypeFragment: Fragment() {
 
-    val sharedViewModel: SavePointViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var types: RadioGroup
 
@@ -40,7 +39,7 @@ class TypeFragment: Fragment() {
         this.buttonAddNote = root.findViewById(R.id.button_type_add_note)
         this.buttonSave = root.findViewById(R.id.button_type_save)
 
-        this.types.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, i ->
+        this.types.setOnCheckedChangeListener { radioGroup, _ ->
             val checkedRadioButtonId: Int = radioGroup.checkedRadioButtonId
             if(checkedRadioButtonId == R.id.ruin) {
                 this.sharedViewModel.setType(TypeEnum.RUIN)
@@ -60,28 +59,28 @@ class TypeFragment: Fragment() {
             if(checkedRadioButtonId == R.id.other_type) {
                 this.sharedViewModel.setType(TypeEnum.OTHER_TYPE)
             }
-        })
+        }
 
         val nameObserver = Observer<String> {newName ->
             this.pointName.text = newName
         }
         this.sharedViewModel.pointName.observe(this.viewLifecycleOwner, nameObserver)
 
-        this.buttonAddNote.setOnClickListener(View.OnClickListener {
+        this.buttonAddNote.setOnClickListener {
             this.navigate(R.id.action_typeFragment_to_noteFragment)
-        })
+        }
 
-        this.buttonSave.setOnClickListener(View.OnClickListener {
+        this.buttonSave.setOnClickListener {
 
             try {
                 this.sharedViewModel.savePoint()
-                this.sharedViewModel.resetRecord()
+                this.sharedViewModel.reset()
                 this.navigate(R.id.action_typeFragment_to_startFragment)
-            } catch (e: NoAvailableGeolocationException) {
-                Toast.makeText(this.context, "Save: " + e.javaClass.name, Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(this.context, e.javaClass.simpleName, Toast.LENGTH_LONG).show()
             }
 
-        })
+        }
         return root
     }
 

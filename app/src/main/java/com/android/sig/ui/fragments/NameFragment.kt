@@ -12,12 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.android.sig.Launch
 import com.android.sig.R
-import com.android.sig.SavePointViewModel
+import com.android.sig.ui.SharedViewModel
 
 class NameFragment: Fragment(), View.OnClickListener {
 
-    private val sharedViewModel: SavePointViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels {
+        (this.activity?.application as Launch).sharedViewModelFactory()
+    }
 
     private lateinit var longitude: TextView
 
@@ -52,9 +55,9 @@ class NameFragment: Fragment(), View.OnClickListener {
         }
         this.sharedViewModel.latitude.observe(this.viewLifecycleOwner, latitudeObserver)
 
-        this.buttonNext.setOnClickListener(View.OnClickListener {
+        this.buttonNext.setOnClickListener {
             this.handleClickNext()
-        })
+        }
         return root
     }
 

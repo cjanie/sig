@@ -7,9 +7,6 @@ import com.android.sig.businesslogic.usecases.SavePointUseCase
 import org.junit.Test
 import org.junit.jupiter.api.assertThrows
 
-
-
-
 class SavePointUseCaseTest {
 
     @Test

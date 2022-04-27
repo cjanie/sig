@@ -1,14 +1,16 @@
-package com.android.sig
+package com.android.sig.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
+import com.android.sig.TypeEnum
 import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
-import kotlin.jvm.Throws
+import com.android.sig.businesslogic.exceptions.UndefinedTypeException
+
+import com.android.sig.businesslogic.usecases.SavePointUseCase
 
 
-class SavePointViewModel: ViewModel() {
+class SharedViewModel(val savePointUseCase: SavePointUseCase): ViewModel() {
 
     private val _longitude = MutableLiveData<Double>()
     val longitude: LiveData<Double> = _longitude
@@ -26,7 +28,7 @@ class SavePointViewModel: ViewModel() {
     val note: LiveData<String> = _note
 
     init {
-        this.resetRecord()
+        this.reset()
     }
 
     fun setLatitude(latitude: Double) {
@@ -50,7 +52,7 @@ class SavePointViewModel: ViewModel() {
     }
 
 
-    fun resetRecord() {
+    fun reset() {
         this._longitude.value = null
         this._latitude.value = null
         this._pointName.value = ""
@@ -58,9 +60,18 @@ class SavePointViewModel: ViewModel() {
         this._note.value = ""
     }
 
-    @Throws(NoAvailableGeolocationException::class)
+    @Throws(
+        NoAvailableGeolocationException::class,
+        UndefinedTypeException::class
+    )
     fun savePoint() {
-
+        this.savePointUseCase.handle(
+            this._latitude.value,
+            this._longitude.value,
+            this._pointName.value,
+            this._type.value,
+            this._note.value
+        )
     }
 
 }

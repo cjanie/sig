@@ -2,6 +2,6 @@ package com.android.sig.businesslogic.gateways
 
 import com.android.sig.businesslogic.entities.Point
 
-interface SavePointGateWay {
+interface SavePointGateway {
     fun save(point: Point): Long
 }

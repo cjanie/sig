@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_noteFragment_to_startFragment"
             app:destination="@+id/start_fragment"/>
+        <action
+            android:id="@+id/action_noteFragment_to_typeFragment"
+            app:destination="@id/type_fragment" />
     </fragment>
 
 </navigation>

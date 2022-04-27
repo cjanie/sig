@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.android.sig.R
-import com.android.sig.SavePointViewModel
+import com.android.sig.ui.SharedViewModel
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,7 +19,7 @@ import com.google.android.gms.location.LocationServices
 
 class StartFragment: Fragment() {
 
-    private val sharedViewModel: SavePointViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var point: ImageView
 
@@ -30,11 +30,9 @@ class StartFragment: Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_start, container, false)
         this.point = root.findViewById(R.id.point)
-        this.point.setOnClickListener(View.OnClickListener {
-
+        this.point.setOnClickListener {
             this.handleClickPoint()
-        })
-
+        }
         return root
     }
 
@@ -48,7 +46,7 @@ class StartFragment: Fragment() {
 
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
                 if(location != null) {
-                    this.recordPoint(location.longitude, location.latitude)
+                    this.setGeolocation(location.longitude, location.latitude)
                     this.showToast(location.longitude, location.latitude)
                 } else {
                     Toast.makeText(this.context, "Location is null", Toast.LENGTH_LONG).show()
@@ -62,7 +60,7 @@ class StartFragment: Fragment() {
     }
 
 
-    fun handleClickPoint() {
+    private fun handleClickPoint() {
         this.activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         this.navigate()
     }
@@ -76,7 +74,7 @@ class StartFragment: Fragment() {
         ).show()
     }
 
-    private fun recordPoint(longitude: Double, latitude: Double) {
+    private fun setGeolocation(longitude: Double, latitude: Double) {
         this.sharedViewModel.setLongitude(longitude)
         this.sharedViewModel.setLatitude(latitude)
     }
@@ -84,6 +82,5 @@ class StartFragment: Fragment() {
     private fun navigate() {
         this.findNavController().navigate(R.id.action_startFragment_to_nameFragment)
     }
-
 
 }
