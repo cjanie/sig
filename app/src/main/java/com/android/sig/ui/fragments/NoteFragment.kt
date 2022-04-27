@@ -14,13 +14,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.R
-import com.android.sig.SavePointViewModel
+import com.android.sig.ui.SharedViewModel
 import com.android.sig.TypeEnum
-import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
+import com.android.sig.businesslogic.exceptions.UndefinedTypeException
 
 class NoteFragment: Fragment() {
 
-    val sharedViewModel: SavePointViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var pointName: TextView
 
@@ -53,16 +53,18 @@ class NoteFragment: Fragment() {
         }
         this.sharedViewModel.type.observe(this.viewLifecycleOwner, typeObserver)
 
-        this.buttonSave.setOnClickListener(View.OnClickListener {
+        this.buttonSave.setOnClickListener {
             this.recordNote()
             try {
                 this.sharedViewModel.savePoint()
-                this.sharedViewModel.resetRecord()
+                this.sharedViewModel.reset()
                 this.navigate(R.id.action_noteFragment_to_startFragment)
-            } catch (e: NoAvailableGeolocationException) {
-                Toast.makeText(this.context, "save: " + e.javaClass.name, Toast.LENGTH_LONG).show()
+            } catch(e: Exception) {
+                Toast.makeText(this.context, e.javaClass.simpleName, Toast.LENGTH_LONG).show()
+                if (e is UndefinedTypeException)
+                    this.navigate(R.id.action_noteFragment_to_typeFragment)
             }
-        })
+        }
 
         return root
     }
