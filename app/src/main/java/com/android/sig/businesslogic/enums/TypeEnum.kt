@@ -25,7 +25,7 @@ enum class TypeEnum {
                   },
     ARCHEOLOGIC_SITE {
                         override fun <E> accept(visitor: TypeVisitor<E>): E {
-                            return visitor.visitArcheologicSite()
+                            return visitor.visitArchaeologicSite()
                         }
                      },
     OTHER_TYPE {

@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.android.sig.R
 import com.android.sig.ui.SharedViewModel
 import com.android.sig.businesslogic.enums.TypeEnum
+import com.android.sig.ui.TypeRadioButtonHandler
 
 class TypeFragment: Fragment() {
 
@@ -61,7 +62,13 @@ class TypeFragment: Fragment() {
             }
         }
 
-        val nameObserver = Observer<String> {newName ->
+        val typeObserver = Observer<TypeEnum> { type ->
+            if(type != null)
+                this.types.check(TypeRadioButtonHandler().getRadioButtonId(type))
+        }
+        this.sharedViewModel.type.observe(this.viewLifecycleOwner, typeObserver)
+
+        val nameObserver = Observer<String> { newName ->
             this.pointName.text = newName
         }
         this.sharedViewModel.pointName.observe(this.viewLifecycleOwner, nameObserver)

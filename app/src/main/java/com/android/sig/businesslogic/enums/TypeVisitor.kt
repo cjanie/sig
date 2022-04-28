@@ -6,7 +6,7 @@ interface TypeVisitor<T> {
     fun visitCastel(): T
     fun visitWall(): T
     fun visitHistoricSite(): T
-    fun visitArcheologicSite(): T
+    fun visitArchaeologicSite(): T
     fun visitOtherType(): T
 
 }
