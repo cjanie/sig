@@ -1,6 +1,6 @@
 package com.android.sig.businesslogic.usecases
 
-import com.android.sig.TypeEnum
+import com.android.sig.businesslogic.enums.TypeEnum
 import com.android.sig.businesslogic.entities.Point
 import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 import com.android.sig.businesslogic.exceptions.UndefinedTypeException

@@ -3,7 +3,7 @@ package com.android.sig.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.sig.TypeEnum
+import com.android.sig.businesslogic.enums.TypeEnum
 import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 import com.android.sig.businesslogic.exceptions.UndefinedTypeException
 

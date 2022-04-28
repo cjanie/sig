@@ -1,6 +1,7 @@
 package com.android.sig
 
 import com.android.sig.adapters.InMemorySavePointGateWayImpl
+import com.android.sig.businesslogic.enums.TypeEnum
 import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
 import com.android.sig.businesslogic.exceptions.UndefinedTypeException
 import com.android.sig.businesslogic.usecases.SavePointUseCase

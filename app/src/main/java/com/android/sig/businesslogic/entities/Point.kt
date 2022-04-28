@@ -1,6 +1,6 @@
 package com.android.sig.businesslogic.entities
 
-import com.android.sig.TypeEnum
+import com.android.sig.businesslogic.enums.TypeEnum
 
 class Point(
     val id: Long?,
