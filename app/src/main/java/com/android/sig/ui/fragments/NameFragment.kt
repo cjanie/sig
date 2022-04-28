@@ -1,6 +1,7 @@
 package com.android.sig.ui.fragments
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -58,6 +59,7 @@ class NameFragment: Fragment(), View.OnClickListener {
         this.buttonNext.setOnClickListener {
             this.handleClickNext()
         }
+
         return root
     }
 

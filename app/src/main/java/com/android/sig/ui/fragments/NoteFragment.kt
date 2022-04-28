@@ -53,6 +53,14 @@ class NoteFragment: Fragment() {
         }
         this.sharedViewModel.type.observe(this.viewLifecycleOwner, typeObserver)
 
+        val noteObserver: Observer<String> = Observer { newNote ->
+            if(!newNote.isNullOrEmpty()) {
+                this.note.append(newNote)
+            }
+        }
+        this.sharedViewModel.note.observe(this.viewLifecycleOwner, noteObserver)
+
+
         this.buttonSave.setOnClickListener {
             this.recordNote()
             try {
