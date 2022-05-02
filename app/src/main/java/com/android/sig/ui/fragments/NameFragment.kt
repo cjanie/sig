@@ -56,6 +56,11 @@ class NameFragment: Fragment(), View.OnClickListener {
         }
         this.sharedViewModel.latitude.observe(this.viewLifecycleOwner, latitudeObserver)
 
+        val pointNameObserver: Observer<String> = Observer { newPointName ->
+            this.pointName.append(newPointName)
+        }
+        this.sharedViewModel.pointName.observe(this.viewLifecycleOwner, pointNameObserver)
+
         this.buttonNext.setOnClickListener {
             this.handleClickNext()
         }

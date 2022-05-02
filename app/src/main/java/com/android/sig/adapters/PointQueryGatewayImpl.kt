@@ -9,7 +9,7 @@ class PointQueryGatewayImpl: PointQueryGateway {
     override fun getPoints(): List<Point> {
 
         val bollene = Point(1, 44.2833, 4.75, "Bollène", TypeEnum.RUIN, "Comment about Bollène")
-        val orange = Point(2, 1.5, 1.7, "Orange", TypeEnum.ARCHEOLOGIC_SITE, "Comment about Orange")
+        val orange = Point(2, 44.1333, 4.8, "Orange", TypeEnum.ARCHEOLOGIC_SITE, "Comment about Orange")
 
         return Arrays.asList(bollene, orange)
     }
