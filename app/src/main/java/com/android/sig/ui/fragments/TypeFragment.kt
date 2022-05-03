@@ -13,9 +13,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.R
-import com.android.sig.ui.SharedViewModel
+import com.android.sig.viewmodels.SharedViewModel
 import com.android.sig.businesslogic.enums.TypeEnum
-import com.android.sig.ui.TypeRadioButtonHandler
+import com.android.sig.businesslogic.enums.TypeVisitor
 
 class TypeFragment: Fragment() {
 
@@ -64,7 +64,7 @@ class TypeFragment: Fragment() {
 
         val typeObserver = Observer<TypeEnum> { type ->
             if(type != null)
-                this.types.check(TypeRadioButtonHandler().getRadioButtonId(type))
+                this.types.check(this.getRadioButtonId(type))
         }
         this.sharedViewModel.type.observe(this.viewLifecycleOwner, typeObserver)
 
@@ -89,6 +89,36 @@ class TypeFragment: Fragment() {
 
         }
         return root
+    }
+
+    private fun getRadioButtonId(type: TypeEnum): Int {
+        val visitor = object : TypeVisitor<Int> {
+            override fun visitRuin(): Int {
+                return R.id.ruin
+            }
+
+            override fun visitCastel(): Int {
+                return R.id.castel
+            }
+
+            override fun visitWall(): Int {
+                return R.id.wall
+            }
+
+            override fun visitHistoricSite(): Int {
+                return R.id.historic
+            }
+
+            override fun visitArchaeologicSite(): Int {
+                return R.id.archaeologic
+            }
+
+            override fun visitOtherType(): Int {
+                return R.id.other_type
+            }
+        }
+
+        return type.accept(visitor)
     }
 
     private fun navigate(actionId: Int) {

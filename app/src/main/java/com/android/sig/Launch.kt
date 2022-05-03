@@ -7,8 +7,8 @@ import com.android.sig.businesslogic.gateways.PointCommandGateway
 import com.android.sig.businesslogic.gateways.PointQueryGateway
 import com.android.sig.businesslogic.usecases.GetPointsUseCase
 import com.android.sig.businesslogic.usecases.SavePointUseCase
-import com.android.sig.ui.MapViewModelFactory
-import com.android.sig.ui.SharedViewModelFactory
+import com.android.sig.viewmodelfactories.MapViewModelFactory
+import com.android.sig.viewmodelfactories.SharedViewModelFactory
 
 class Launch: Application() {
 

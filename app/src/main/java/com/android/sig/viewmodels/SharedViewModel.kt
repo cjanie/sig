@@ -1,4 +1,4 @@
-package com.android.sig.ui
+package com.android.sig.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

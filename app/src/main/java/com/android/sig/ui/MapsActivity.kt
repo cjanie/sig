@@ -1,7 +1,7 @@
 package com.android.sig.ui
 
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,13 +10,14 @@ import com.android.sig.Launch
 import com.android.sig.R
 import com.android.sig.businesslogic.entities.Point
 import com.android.sig.databinding.ActivityMapsBinding
-import com.google.android.gms.dynamic.IObjectWrapper
+import com.android.sig.utils.ImageTransformer
+import com.android.sig.utils.TypeIconHandler
+import com.android.sig.viewmodels.MapViewModel
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -62,12 +63,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val pointsObserver: Observer<List<Point>> = Observer { newPoints ->
             if(!newPoints.isNullOrEmpty()) {
                 for(point in newPoints) {
-                    val bitmapDrawable: BitmapDrawable = this.getDrawable(
+                    val drawable: Drawable = this.getDrawable(
                         TypeIconHandler().getIconId(point.type!!)
-                    ) as BitmapDrawable
-                    val bitmap: Bitmap = bitmapDrawable.bitmap
-                    val smallBitmap: Bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.width/2, bitmap.height/2, false)
-
+                    ) as Drawable
+                    val smallBitmap: Bitmap = ImageTransformer().getSmallerImage(drawable, 2)
                     val latLong = LatLng(point.latitude, point.longitude)
                     mMap.addMarker(
                         MarkerOptions()
@@ -80,4 +79,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         this.mapViewModel.points.observe(this, pointsObserver)
     }
+
+
+
 }

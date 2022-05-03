@@ -1,7 +1,6 @@
 package com.android.sig.ui.fragments
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.Launch
 import com.android.sig.R
-import com.android.sig.ui.SharedViewModel
+import com.android.sig.viewmodels.SharedViewModel
 
 class NameFragment: Fragment(), View.OnClickListener {
 
