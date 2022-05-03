@@ -2,7 +2,7 @@ package com.android.sig.viewmodelfactories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.sig.businesslogic.usecases.GetPointsUseCase
+import com.android.businesslogic.usecases.GetPointsUseCase
 import com.android.sig.viewmodels.MapViewModel
 import java.lang.IllegalArgumentException
 

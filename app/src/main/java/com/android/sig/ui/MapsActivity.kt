@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.android.sig.Launch
 import com.android.sig.R
-import com.android.sig.businesslogic.entities.Point
+import com.android.businesslogic.domain.entities.Point
 import com.android.sig.databinding.ActivityMapsBinding
 import com.android.sig.utils.ImageTransformer
 import com.android.sig.utils.TypeIconHandler
