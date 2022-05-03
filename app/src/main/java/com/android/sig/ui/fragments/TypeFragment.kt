@@ -14,8 +14,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
-import com.android.sig.businesslogic.enums.TypeEnum
-import com.android.sig.businesslogic.enums.TypeVisitor
+import com.android.businesslogic.domain.enums.TypeEnum
+import com.android.businesslogic.domain.enums.TypeVisitor
 
 class TypeFragment: Fragment() {
 

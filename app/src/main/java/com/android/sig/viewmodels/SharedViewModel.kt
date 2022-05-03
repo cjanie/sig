@@ -3,11 +3,11 @@ package com.android.sig.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.sig.businesslogic.enums.TypeEnum
-import com.android.sig.businesslogic.exceptions.NoAvailableGeolocationException
-import com.android.sig.businesslogic.exceptions.UndefinedTypeException
+import com.android.businesslogic.domain.enums.TypeEnum
+import com.android.businesslogic.usecases.exceptions.NoAvailableGeolocationException
+import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
 
-import com.android.sig.businesslogic.usecases.SavePointUseCase
+import com.android.businesslogic.usecases.SavePointUseCase
 
 
 class SharedViewModel(val savePointUseCase: SavePointUseCase): ViewModel() {

@@ -1,12 +1,12 @@
 package com.android.sig
 
 import android.app.Application
-import com.android.sig.adapters.PointCommandGatewayImpl
-import com.android.sig.adapters.PointQueryGatewayImpl
-import com.android.sig.businesslogic.gateways.PointCommandGateway
-import com.android.sig.businesslogic.gateways.PointQueryGateway
-import com.android.sig.businesslogic.usecases.GetPointsUseCase
-import com.android.sig.businesslogic.usecases.SavePointUseCase
+import com.android.adapters.adapters.PointCommandGatewayImpl
+import com.android.adapters.adapters.PointQueryGatewayImpl
+import com.android.businesslogic.gateways.PointCommandGateway
+import com.android.businesslogic.gateways.PointQueryGateway
+import com.android.businesslogic.usecases.GetPointsUseCase
+import com.android.businesslogic.usecases.SavePointUseCase
 import com.android.sig.viewmodelfactories.MapViewModelFactory
 import com.android.sig.viewmodelfactories.SharedViewModelFactory
 
