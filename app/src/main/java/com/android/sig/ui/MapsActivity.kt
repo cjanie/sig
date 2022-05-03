@@ -1,8 +1,8 @@
 package com.android.sig.ui
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -20,16 +20,19 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity: BaseActivity(), OnMapReadyCallback {
 
     private val mapViewModel: MapViewModel by viewModels {
         (this.application as Launch).mapViewModelFactory()
     }
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+    private lateinit var marker: Marker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,13 +76,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             .position(latLong)
                             .title(point.name)
                             .icon(BitmapDescriptorFactory.fromBitmap(smallBitmap))
+                            .snippet(point.note)
                     )
+
                 }
             }
         }
         this.mapViewModel.points.observe(this, pointsObserver)
     }
-
-
 
 }

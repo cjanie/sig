@@ -14,12 +14,15 @@ import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.android.sig.Launch
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 class StartFragment: Fragment() {
 
-    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels {
+        (this.activity?.application as Launch).sharedViewModelFactory()
+    }
 
     private lateinit var point: ImageView
 
@@ -48,6 +51,7 @@ class StartFragment: Fragment() {
                 if(location != null) {
                     this.setGeolocation(location.longitude, location.latitude)
                     this.showToast(location.longitude, location.latitude)
+                    this.navigate()
                 } else {
                     Toast.makeText(this.context, "Location is null", Toast.LENGTH_LONG).show()
                 }
@@ -62,13 +66,12 @@ class StartFragment: Fragment() {
 
     private fun handleClickPoint() {
         this.activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        this.navigate()
     }
 
     private fun showToast(longitude: Double, latitude: Double) {
         Toast.makeText(
             this.context,
-            this.getString(R.string.longitude_abbrev) +": " + longitude.toString()
+            this.getString(R.string.longitude_abbrev) +": " + longitude.toString() + " "
                     + this.getString(R.string.latitude_abbrev)+ ": " + latitude.toString(),
             Toast.LENGTH_LONG
         ).show()

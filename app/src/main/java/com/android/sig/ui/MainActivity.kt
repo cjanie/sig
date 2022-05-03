@@ -11,7 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

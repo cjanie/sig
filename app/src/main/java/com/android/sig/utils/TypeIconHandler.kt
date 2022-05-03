@@ -30,7 +30,7 @@ class TypeIconHandler {
             }
 
             override fun visitOtherType(): Int {
-                return R.drawable.hydraulic_monument
+                return R.drawable.default_icon
             }
 
         }
