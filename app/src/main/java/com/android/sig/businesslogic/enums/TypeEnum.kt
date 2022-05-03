@@ -32,7 +32,7 @@ enum class TypeEnum {
                 override fun <E> accept(visitor: TypeVisitor<E>): E {
                     return visitor.visitOtherType()
                 }
-               };
+    };
 
     abstract fun <E>  accept(visitor: TypeVisitor<E>): E
 }

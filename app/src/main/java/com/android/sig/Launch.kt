@@ -1,20 +1,34 @@
 package com.android.sig
 
 import android.app.Application
-import com.android.sig.adapters.SavePointGatewayImpl
-import com.android.sig.businesslogic.gateways.SavePointGateway
+import com.android.sig.adapters.PointCommandGatewayImpl
+import com.android.sig.adapters.PointQueryGatewayImpl
+import com.android.sig.businesslogic.gateways.PointCommandGateway
+import com.android.sig.businesslogic.gateways.PointQueryGateway
+import com.android.sig.businesslogic.usecases.GetPointsUseCase
 import com.android.sig.businesslogic.usecases.SavePointUseCase
-import com.android.sig.ui.SharedViewModelFactory
+import com.android.sig.viewmodelfactories.MapViewModelFactory
+import com.android.sig.viewmodelfactories.SharedViewModelFactory
 
 class Launch: Application() {
 
-    private val _savePointGateway: SavePointGateway = SavePointGatewayImpl()
+    private val _pointCommandGateway: PointCommandGateway = PointCommandGatewayImpl()
 
-    private val _savePointUseCase: SavePointUseCase = SavePointUseCase(this._savePointGateway)
+    private val _pointQueryGateway: PointQueryGateway = PointQueryGatewayImpl()
+
+    private val _savePointUseCase: SavePointUseCase = SavePointUseCase(this._pointCommandGateway)
+
+    private val _getPointsUseCase: GetPointsUseCase = GetPointsUseCase(this._pointQueryGateway)
 
     private val _sharedViewModelFactory = SharedViewModelFactory(this._savePointUseCase)
 
+    private val _mapViewModelFactory = MapViewModelFactory(this._getPointsUseCase)
+
     fun sharedViewModelFactory(): SharedViewModelFactory {
         return this._sharedViewModelFactory
+    }
+
+    fun mapViewModelFactory(): MapViewModelFactory {
+        return this._mapViewModelFactory
     }
 }

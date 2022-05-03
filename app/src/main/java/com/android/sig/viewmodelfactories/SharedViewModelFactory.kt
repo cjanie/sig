@@ -1,8 +1,9 @@
-package com.android.sig.ui
+package com.android.sig.viewmodelfactories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.sig.businesslogic.usecases.SavePointUseCase
+import com.android.sig.viewmodels.SharedViewModel
 import java.lang.IllegalArgumentException
 
 class SharedViewModelFactory(private val savePointUseCase: SavePointUseCase): ViewModelProvider.Factory {

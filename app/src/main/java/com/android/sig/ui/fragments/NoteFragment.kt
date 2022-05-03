@@ -14,7 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.R
-import com.android.sig.ui.SharedViewModel
+import com.android.sig.viewmodels.SharedViewModel
 import com.android.sig.businesslogic.enums.TypeEnum
 import com.android.sig.businesslogic.exceptions.UndefinedTypeException
 

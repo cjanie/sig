@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToMapActivity() {
-        val intent = Intent(this, MapActivity::class.java)
+        val intent = Intent(this, MapsActivity::class.java)
         this.startActivity(intent)
     }
 }
