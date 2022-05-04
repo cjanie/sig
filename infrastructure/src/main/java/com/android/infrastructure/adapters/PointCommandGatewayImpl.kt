@@ -1,4 +1,4 @@
-package com.android.adapters.adapters
+package com.android.infrastructure.adapters
 
 import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.gateways.PointCommandGateway
