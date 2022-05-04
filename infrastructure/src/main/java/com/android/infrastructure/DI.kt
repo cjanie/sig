@@ -1,21 +1,19 @@
 package com.android.infrastructure
 
+import android.app.Application
+import android.content.Context
 import com.android.businesslogic.gateways.PointCommandGateway
 import com.android.businesslogic.gateways.PointQueryGateway
 import com.android.infrastructure.adapters.PointCommandGatewayImpl
 import com.android.infrastructure.adapters.PointQueryGatewayImpl
 
-class DI {
+import com.android.infrastructure.database.LocalDatabase
 
-    private val _pointCommandGateway: PointCommandGateway = PointCommandGatewayImpl()
+class DI(private val application: Application) {
 
-    private val _pointQueryGateway: PointQueryGateway = PointQueryGatewayImpl()
+    private val _database by lazy { LocalDatabase.getDatabase(this.application) }
 
-    fun pointCommandGateway(): PointCommandGateway {
-        return this._pointCommandGateway
-    }
+    val pointCommandGateway by lazy { PointCommandGatewayImpl(this._database.pointDao()) }
 
-    fun pointQueryGateway(): PointQueryGateway {
-        return this._pointQueryGateway
-    }
+    val pointQueryGateway by lazy { PointQueryGatewayImpl() }
 }

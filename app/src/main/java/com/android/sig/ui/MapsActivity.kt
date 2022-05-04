@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsActivity: BaseActivity(), OnMapReadyCallback {
 
     private val mapViewModel: MapViewModel by viewModels {
-        (this.application as Launch).mapViewModelFactory()
+        (this.application as Launch).mapViewModelFactory
     }
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding

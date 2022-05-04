@@ -18,9 +18,7 @@ import com.android.sig.viewmodels.SharedViewModel
 
 class NameFragment: Fragment(), View.OnClickListener {
 
-    private val sharedViewModel: SharedViewModel by activityViewModels {
-        (this.activity?.application as Launch).sharedViewModelFactory()
-    }
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var longitude: TextView
 

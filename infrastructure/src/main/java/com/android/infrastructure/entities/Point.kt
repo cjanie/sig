@@ -5,9 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "point")
-class Point(@PrimaryKey(autoGenerate = true) val id: Long,
-            @ColumnInfo(name = "point_name") val pointName: String,
-            @ColumnInfo(name = "type") val type: String,
-            @ColumnInfo(name = "note") val note: String
+class Point(@PrimaryKey(autoGenerate = true) val id: Long?,
+            @ColumnInfo(name = "latitude") val latitude: Double,
+            @ColumnInfo(name = "longitude") val longitude: Double,
+            @ColumnInfo(name = "point_name") val pointName: String?,
+            @ColumnInfo(name = "type") val type: String?,
+            @ColumnInfo(name = "note") val note: String?
             ) {
 }

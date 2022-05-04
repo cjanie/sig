@@ -13,5 +13,5 @@ interface PointDao {
     fun getPoints(): List<Point>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun savePoint(point: Point)
+    fun savePoint(point: Point): Long
 }
