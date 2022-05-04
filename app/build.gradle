@@ -45,7 +45,7 @@ dependencies {
 
     // Modules
     implementation project(path: ':businesslogic')
-    implementation project(path: ':adapters')
+    implementation project(path: ':infrastructure')
 
     // IT
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

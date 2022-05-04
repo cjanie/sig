@@ -17,6 +17,7 @@ import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
+import com.android.sig.Launch
 
 class NoteFragment: Fragment() {
 
@@ -68,6 +69,7 @@ class NoteFragment: Fragment() {
                 this.sharedViewModel.reset()
                 this.navigate(R.id.action_noteFragment_to_startFragment)
             } catch(e: Exception) {
+                e.printStackTrace()
                 Toast.makeText(this.context, e.javaClass.simpleName, Toast.LENGTH_LONG).show()
                 if (e is UndefinedTypeException)
                     this.navigate(R.id.action_noteFragment_to_typeFragment)

@@ -21,7 +21,7 @@ import com.google.android.gms.location.LocationServices
 class StartFragment: Fragment() {
 
     private val sharedViewModel: SharedViewModel by activityViewModels {
-        (this.activity?.application as Launch).sharedViewModelFactory()
+            (this.activity?.application as Launch).sharedViewModelFactory
     }
 
     private lateinit var point: ImageView

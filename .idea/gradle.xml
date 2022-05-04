@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/adapters" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/businesslogic" />
+            <option value="$PROJECT_DIR$/infrastructure" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
