@@ -4,7 +4,7 @@ import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.gateways.PointCommandGateway
 import com.android.infrastructure.dao.PointDao
 
-class PointCommandGatewayImpl(private val pointDao: PointDao): PointCommandGateway {
+internal class PointCommandGatewayImpl(private val pointDao: PointDao): PointCommandGateway {
 
     override fun save(point: Point): Long {
         val pointDto:com.android.infrastructure.entities.Point

@@ -13,7 +13,15 @@ class DI(private val application: Application) {
 
     private val _database by lazy { LocalDatabase.getDatabase(this.application) }
 
-    val pointCommandGateway by lazy { PointCommandGatewayImpl(this._database.pointDao()) }
+    private val pointCommandGateway by lazy { PointCommandGatewayImpl(this._database.pointDao()) }
 
-    val pointQueryGateway by lazy { PointQueryGatewayImpl() }
+    private val pointQueryGateway by lazy { PointQueryGatewayImpl() }
+
+    fun pointCommandGateway() : PointCommandGateway {
+        return this.pointCommandGateway
+    }
+
+    fun pointQueryGateway(): PointQueryGateway {
+        return this.pointQueryGateway
+    }
 }

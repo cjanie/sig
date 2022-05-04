@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.android.infrastructure.entities.Point
 
 @Dao
-interface PointDao {
+internal interface PointDao {
 
     @Query("SELECT * FROM point")
     fun getPoints(): List<Point>

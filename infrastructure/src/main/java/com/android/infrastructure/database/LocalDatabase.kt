@@ -8,7 +8,7 @@ import com.android.infrastructure.dao.PointDao
 import com.android.infrastructure.entities.Point
 
 @Database(entities = arrayOf(Point::class), version = 1, exportSchema = false)
-abstract class LocalDatabase: RoomDatabase() {
+internal abstract class LocalDatabase: RoomDatabase() {
 
     abstract fun pointDao(): PointDao
 
