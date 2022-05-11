@@ -12,6 +12,6 @@ internal interface PointDao {
     @Query("SELECT * FROM point")
     fun getPoints(): List<Point>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun savePoint(point: Point): Long
 }

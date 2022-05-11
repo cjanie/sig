@@ -15,7 +15,7 @@ class DI(private val application: Application) {
 
     private val pointCommandGateway by lazy { PointCommandGatewayImpl(this._database.pointDao()) }
 
-    private val pointQueryGateway by lazy { PointQueryGatewayImpl() }
+    private val pointQueryGateway by lazy { PointQueryGatewayImpl(this._database.pointDao()) }
 
     fun pointCommandGateway() : PointCommandGateway {
         return this.pointCommandGateway
