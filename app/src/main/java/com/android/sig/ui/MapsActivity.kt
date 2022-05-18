@@ -4,11 +4,13 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.android.sig.Launch
 import com.android.sig.R
 import com.android.businesslogic.domain.entities.Point
+import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.sig.databinding.ActivityMapsBinding
 import com.android.sig.utils.ImageTransformer
 import com.android.sig.utils.TypeIconHandler
@@ -25,6 +27,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class MapsActivity: BaseActivity(), OnMapReadyCallback {
+
+    private val TAG = "MAPS ACTIVITY"
 
     private val mapViewModel: MapViewModel by viewModels {
         (this.application as Launch).mapViewModelFactory
@@ -71,6 +75,7 @@ class MapsActivity: BaseActivity(), OnMapReadyCallback {
                     ) as Drawable
                     val smallBitmap: Bitmap = ImageTransformer().getSmallerImage(drawable, 2)
                     val latLong = LatLng(point.latitude, point.longitude)
+
                     mMap.addMarker(
                         MarkerOptions()
                             .position(latLong)
@@ -78,7 +83,6 @@ class MapsActivity: BaseActivity(), OnMapReadyCallback {
                             .icon(BitmapDescriptorFactory.fromBitmap(smallBitmap))
                             .snippet(point.note)
                     )
-
                 }
             }
         }

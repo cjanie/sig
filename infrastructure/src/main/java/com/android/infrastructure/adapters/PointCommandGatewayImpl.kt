@@ -10,8 +10,8 @@ internal class PointCommandGatewayImpl(private val pointDao: PointDao): PointCom
         val pointDto:com.android.infrastructure.entities.Point
         = com.android.infrastructure.entities.Point(
             null,
-            point.longitude,
             point.latitude,
+            point.longitude,
             point.name,
             point.type.toString(),
             point.note

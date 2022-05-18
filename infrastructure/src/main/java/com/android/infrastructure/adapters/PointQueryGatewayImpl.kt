@@ -1,5 +1,6 @@
 package com.android.infrastructure.adapters
 
+import android.util.Log
 import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.gateways.PointQueryGateway
@@ -8,15 +9,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQueryGateway {
+
+    private val TAG = "POINT QUERY GATEWAY"
+
     override fun getPoints(): List<Point> {
 
-        val bollene = Point(1, 44.2833, 4.75, "Bollène", TypeEnum.RUIN, "Comment about Bollène")
-        val orange = Point(2, 44.1333, 4.8, "Orange", TypeEnum.ARCHEOLOGIC_SITE, "Comment about Orange")
-
-        return Arrays.asList(bollene, orange) // TODO
-
-
-/*
         val points: MutableList<Point> = ArrayList();
         val pointsDTO = this.pointDao.getPoints();
         if(!pointsDTO.isNullOrEmpty()) {
@@ -32,10 +29,8 @@ internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQuery
                 points.add(point)
             }
         }
-        System.out.println(points.size)
-        return points
 
-*/
+        return points
     }
 
     private fun getTypeEnum(type: String) : TypeEnum {
@@ -51,4 +46,6 @@ internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQuery
         }
         return typeEnum
     }
+
+
 }
