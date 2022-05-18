@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import com.android.infrastructure.dao.PointDao
 import com.android.infrastructure.entities.Point
 
+
 @Database(entities = arrayOf(Point::class), version = 1, exportSchema = false)
 internal abstract class LocalDatabase: RoomDatabase() {
 

@@ -1,16 +1,12 @@
 package com.android.infrastructure.adapters
 
-import android.util.Log
 import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.gateways.PointQueryGateway
 import com.android.infrastructure.dao.PointDao
-import java.util.*
 import kotlin.collections.ArrayList
 
 internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQueryGateway {
-
-    private val TAG = "POINT QUERY GATEWAY"
 
     override fun getPoints(): List<Point> {
 
