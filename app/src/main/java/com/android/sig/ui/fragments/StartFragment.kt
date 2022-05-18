@@ -2,6 +2,9 @@ package com.android.sig.ui.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +18,9 @@ import com.android.sig.viewmodels.SharedViewModel
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.android.sig.Launch
+import com.android.sig.ui.MainActivity
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 
 class StartFragment: Fragment() {
@@ -47,13 +52,29 @@ class StartFragment: Fragment() {
             val fusedLocationProviderClient: FusedLocationProviderClient = LocationServices
                 .getFusedLocationProviderClient(this.requireActivity())
 
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-                if(location != null) {
-                    this.setGeolocation(location.longitude, location.latitude)
-                    this.showToast(location.longitude, location.latitude)
-                    this.navigate()
+            fusedLocationProviderClient.locationAvailability.addOnSuccessListener { locationAvailability ->
+                if(locationAvailability.isLocationAvailable) {
+                    fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
+                        val lastLocation: Location = task.result
+                        if(lastLocation != null) {
+                            this.setGeolocation(lastLocation.longitude, lastLocation.latitude)
+                            this.showToast(lastLocation.longitude, lastLocation.latitude)
+                            this.navigate()
+                        } else {
+                            Toast.makeText(this.context, "Last location is null", Toast.LENGTH_LONG).show()
+                        }
+                    }
+
                 } else {
-                    Toast.makeText(this.context, "Location is null", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this.context, "Location not available", Toast.LENGTH_LONG).show()
+                    val locationRequest = LocationRequest.create().apply {
+                        interval = 100
+                        fastestInterval = 50
+                        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                    }
+                    val intent = Intent(this.context, MainActivity::class.java)
+                    val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+                    //fusedLocationProviderClient.requestLocationUpdates(locationRequest, pendingIntent)
                 }
             }
 
