@@ -3,6 +3,10 @@
 
     <string name="save_point">Save Point</string>
     <string name="location_not_available">Location is not available</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="request_location_permission">Permission is denied. We need your permission to get your location</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="longitude_abbrev">Long</string>
     <string name="latitude_abbrev">Lat</string>
     <string name="point_name">Point Name</string>
