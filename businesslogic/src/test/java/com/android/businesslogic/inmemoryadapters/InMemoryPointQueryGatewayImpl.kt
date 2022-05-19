@@ -3,7 +3,6 @@ package com.android.businesslogic.inmemoryadapters
 import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.gateways.PointQueryGateway
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOf
 
 class InMemoryPointQueryGatewayImpl: PointQueryGateway {

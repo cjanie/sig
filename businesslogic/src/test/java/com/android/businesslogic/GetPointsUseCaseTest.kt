@@ -4,17 +4,11 @@ import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.usecases.GetPointsUseCase
 import com.android.businesslogic.inmemoryadapters.InMemoryPointQueryGatewayImpl
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
 import java.util.*
-
-
 
 class GetPointsUseCaseTest {
 
@@ -28,7 +22,6 @@ class GetPointsUseCaseTest {
         GetPointsUseCase(pointQueryGateway).handle().collect { points ->
             assertEquals(2, points.size)
         }
-        //assertEquals(2, GetPointsUseCase(pointQueryGateway).handle().size)
     }
 
     @Test
@@ -37,6 +30,5 @@ class GetPointsUseCaseTest {
         GetPointsUseCase(pointQueryGateway).handle().collect { points ->
             assertEquals(0, points.size)
         }
-
     }
 }

@@ -1,7 +1,6 @@
 package com.android.infrastructure
 
 import android.app.Application
-import android.content.Context
 import com.android.businesslogic.gateways.PointCommandGateway
 import com.android.businesslogic.gateways.PointQueryGateway
 import com.android.infrastructure.adapters.PointCommandGatewayImpl
