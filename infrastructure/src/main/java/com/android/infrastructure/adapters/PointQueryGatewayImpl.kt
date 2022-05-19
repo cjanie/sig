@@ -4,29 +4,37 @@ import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.gateways.PointQueryGateway
 import com.android.infrastructure.dao.PointDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlin.collections.ArrayList
 
 internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQueryGateway {
 
-    override fun getPoints(): List<Point> {
+    override fun getPoints(): Flow<List<Point>> {
 
-        val points: MutableList<Point> = ArrayList();
-        val pointsDTO = this.pointDao.getPoints();
-        if(!pointsDTO.isNullOrEmpty()) {
-            for(pointDto in pointsDTO) {
-                val point = Point(
-                    pointDto.id,
-                    pointDto.latitude,
-                    pointDto.longitude,
-                    pointDto.pointName,
-                    this.getTypeEnum(pointDto.type!!),
-                    pointDto.note
-                )
-                points.add(point)
+
+        return this.pointDao.getPoints().map { pointsDTO ->
+            val points: MutableList<Point> = ArrayList()
+            if(!pointsDTO.isNullOrEmpty()) {
+                for(pointDto in pointsDTO) {
+                    val point = Point(
+                        pointDto.id,
+                        pointDto.latitude,
+                        pointDto.longitude,
+                        pointDto.pointName,
+                        this.getTypeEnum(pointDto.type!!),
+                        pointDto.note
+                    )
+                    points.add(point)
+                }
             }
-        }
+            points
+        }.flowOn(Dispatchers.IO)
 
-        return points
+
+
     }
 
     private fun getTypeEnum(type: String) : TypeEnum {
