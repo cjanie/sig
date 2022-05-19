@@ -14,5 +14,5 @@ internal interface PointDao {
     fun getPoints(): Flow<List<Point>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun savePoint(point: Point): Long
+    suspend fun savePoint(point: Point): Long
 }

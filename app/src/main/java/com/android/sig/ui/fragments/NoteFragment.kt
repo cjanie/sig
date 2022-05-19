@@ -18,6 +18,7 @@ import com.android.sig.viewmodels.SharedViewModel
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
 import com.android.sig.Launch
+import kotlinx.coroutines.runBlocking
 
 class NoteFragment: Fragment() {
 
@@ -65,6 +66,7 @@ class NoteFragment: Fragment() {
         this.buttonSave.setOnClickListener {
             this.recordNote()
             try {
+
                 this.sharedViewModel.savePoint()
                 this.sharedViewModel.reset()
                 this.navigate(R.id.action_noteFragment_to_startFragment)

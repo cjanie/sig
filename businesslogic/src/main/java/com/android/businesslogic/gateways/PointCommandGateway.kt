@@ -1,7 +1,8 @@
 package com.android.businesslogic.gateways
 
 import com.android.businesslogic.domain.entities.Point
+import kotlinx.coroutines.flow.Flow
 
 interface PointCommandGateway {
-    fun save(point: Point): Long
+    suspend fun save(point: Point): Long
 }

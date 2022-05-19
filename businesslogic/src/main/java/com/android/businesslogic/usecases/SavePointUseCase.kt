@@ -5,10 +5,11 @@ import com.android.businesslogic.domain.entities.Point
 import com.android.businesslogic.usecases.exceptions.NoAvailableGeolocationException
 import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
 import com.android.businesslogic.gateways.PointCommandGateway
+import kotlinx.coroutines.flow.Flow
 import kotlin.jvm.Throws
 
 class SavePointUseCase(val pointCommandGateWay: PointCommandGateway) {
-    fun handle(latitude: Double?, longitude: Double?, name: String?, type: TypeEnum?, note: String?): Long {
+    suspend fun handle(latitude: Double?, longitude: Double?, name: String?, type: TypeEnum?, note: String?): Long {
         return this.pointCommandGateWay.save(this.createPoint(latitude, longitude, name, type, note))
     }
 
