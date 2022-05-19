@@ -8,7 +8,7 @@ import com.android.businesslogic.gateways.PointCommandGateway
 import kotlin.jvm.Throws
 
 class SavePointUseCase(val pointCommandGateWay: PointCommandGateway) {
-    fun handle(latitude: Double?, longitude: Double?, name: String?, type: TypeEnum?, note: String?): Long {
+    suspend fun handle(latitude: Double?, longitude: Double?, name: String?, type: TypeEnum?, note: String?): Long {
         return this.pointCommandGateWay.save(this.createPoint(latitude, longitude, name, type, note))
     }
 

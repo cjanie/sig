@@ -3,11 +3,13 @@ package com.android.sig.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.usecases.exceptions.NoAvailableGeolocationException
 import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
 
 import com.android.businesslogic.usecases.SavePointUseCase
+import kotlinx.coroutines.launch
 
 
 class SharedViewModel(val savePointUseCase: SavePointUseCase): ViewModel() {
@@ -64,14 +66,17 @@ class SharedViewModel(val savePointUseCase: SavePointUseCase): ViewModel() {
         NoAvailableGeolocationException::class,
         UndefinedTypeException::class
     )
+
     fun savePoint() {
-        this.savePointUseCase.handle(
-            this._latitude.value,
-            this._longitude.value,
-            this._pointName.value,
-            this._type.value,
-            this._note.value
-        )
+        viewModelScope.launch {
+            savePointUseCase.handle(
+                _latitude.value,
+                _longitude.value,
+                _pointName.value,
+                _type.value,
+                _note.value
+            )
+        }
     }
 
 }

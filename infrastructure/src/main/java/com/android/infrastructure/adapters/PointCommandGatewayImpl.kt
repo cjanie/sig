@@ -6,9 +6,8 @@ import com.android.infrastructure.dao.PointDao
 
 internal class PointCommandGatewayImpl(private val pointDao: PointDao): PointCommandGateway {
 
-    override fun save(point: Point): Long {
-        val pointDto:com.android.infrastructure.entities.Point
-        = com.android.infrastructure.entities.Point(
+    override suspend fun save(point: Point): Long {
+        val pointDto = com.android.infrastructure.entities.Point(
             null,
             point.latitude,
             point.longitude,
