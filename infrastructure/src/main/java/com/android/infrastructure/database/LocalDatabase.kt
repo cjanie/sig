@@ -23,7 +23,6 @@ internal abstract class LocalDatabase: RoomDatabase() {
                     LocalDatabase::class.java,
                     "local_database"
                 )
-                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 instance

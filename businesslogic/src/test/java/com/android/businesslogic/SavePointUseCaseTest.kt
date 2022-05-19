@@ -5,11 +5,8 @@ import com.android.businesslogic.usecases.exceptions.NoAvailableGeolocationExcep
 import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
 import com.android.businesslogic.usecases.SavePointUseCase
 import com.android.businesslogic.inmemoryadapters.InMemoryPointCommandGatewayImpl
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.junit.jupiter.api.assertThrows
 
 class SavePointUseCaseTest {
 
