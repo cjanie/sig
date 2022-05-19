@@ -6,7 +6,7 @@
         <item
             android:id="@+id/menu_item_point"
             android:icon="@drawable/point"
-            android:title="@string/record_point" />
+            android:title="@string/save_point" />
         <item
             android:id="@+id/menu_item_map"
             android:icon="@drawable/ic_baseline_map_24"
