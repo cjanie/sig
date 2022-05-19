@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">GIS</string>
 
-    <string name="record_point">Save Point</string>
+    <string name="save_point">Save Point</string>
+    <string name="location_not_available">Location is not available</string>
     <string name="longitude_abbrev">Long</string>
     <string name="latitude_abbrev">Lat</string>
     <string name="point_name">Point Name</string>

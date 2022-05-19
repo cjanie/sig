@@ -20,7 +20,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/record_point"
+        android:text="@string/save_point"
         android:textSize="@dimen/big_text"
         android:textStyle="bold"
         android:textColor="@color/white"

@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +17,12 @@ import androidx.fragment.app.Fragment
 import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.sig.Launch
 import com.android.sig.ui.MainActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 
 class StartFragment: Fragment() {
 
@@ -30,6 +31,8 @@ class StartFragment: Fragment() {
     }
 
     private lateinit var point: ImageView
+
+    private val locationLiveData: MutableLiveData<Location> = MutableLiveData()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,41 +49,42 @@ class StartFragment: Fragment() {
 
     @SuppressLint("MissingPermission")
     private val activityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()) { isGranted ->
-        if(isGranted) {
-            // permission is granted
+        ActivityResultContracts.RequestPermission()) { permissionIsGranted ->
+        if(permissionIsGranted) {
+
             val fusedLocationProviderClient: FusedLocationProviderClient = LocationServices
                 .getFusedLocationProviderClient(this.requireActivity())
 
             fusedLocationProviderClient.locationAvailability.addOnSuccessListener { locationAvailability ->
+
+                val locationCallBack = object: LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        if(!locationResult.equals(null) && locationResult.locations.isNotEmpty()) {
+                            stopLocationUpdates(fusedLocationProviderClient, this)
+                            val newLocation = locationResult.locations[0]
+                            saveLocation(newLocation)
+                            showLocationSuccessMessage(newLocation)
+                        }
+                    }
+                }
+
                 if(locationAvailability.isLocationAvailable) {
                     fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
                         val lastLocation: Location = task.result
-                        if(lastLocation != null) {
-                            this.setGeolocation(lastLocation.longitude, lastLocation.latitude)
-                            this.showToast(lastLocation.longitude, lastLocation.latitude)
-                            this.navigate()
-                        } else {
-                            Toast.makeText(this.context, "Last location is null", Toast.LENGTH_LONG).show()
-                        }
+                        this.saveLocation(lastLocation)
+                        this.navigateToNextStep()
                     }
 
                 } else {
-                    Toast.makeText(this.context, "Location not available", Toast.LENGTH_LONG).show()
-                    val locationRequest = LocationRequest.create().apply {
-                        interval = 100
-                        fastestInterval = 50
-                        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                    }
-                    val intent = Intent(this.context, MainActivity::class.java)
-                    val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-                    //fusedLocationProviderClient.requestLocationUpdates(locationRequest, pendingIntent)
+                    this.showMessage(this.getString(R.string.location_not_available))
+                    this.requestLocationUpdates(
+                        fusedLocationProviderClient, locationCallBack
+                    )
                 }
             }
 
         } else {
-            // permission is denied
-            Toast.makeText(this.context, "Permission is denied", Toast.LENGTH_LONG).show()
+            this.showMessage("Permission is denied")
         }
     }
 
@@ -89,21 +93,44 @@ class StartFragment: Fragment() {
         this.activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
-    private fun showToast(longitude: Double, latitude: Double) {
-        Toast.makeText(
-            this.context,
-            this.getString(R.string.longitude_abbrev) +": " + longitude.toString() + " "
-                    + this.getString(R.string.latitude_abbrev)+ ": " + latitude.toString(),
-            Toast.LENGTH_LONG
-        ).show()
+    private fun saveLocation(location: Location) {
+        this.sharedViewModel.setLatitude(location.latitude)
+        this.sharedViewModel.setLongitude(location.longitude)
     }
 
-    private fun setGeolocation(longitude: Double, latitude: Double) {
-        this.sharedViewModel.setLongitude(longitude)
-        this.sharedViewModel.setLatitude(latitude)
+    @SuppressLint("MissingPermission")
+    private fun requestLocationUpdates(
+        fusedLocationProviderClient: FusedLocationProviderClient,
+        locationCallback: LocationCallback
+    ) {
+        val locationRequest = LocationRequest.create().apply {
+            interval = 100
+            fastestInterval = 50
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest, locationCallback, Looper.getMainLooper()
+        )
     }
 
-    private fun navigate() {
+    private fun stopLocationUpdates(
+        fusedLocationProviderClient: FusedLocationProviderClient,
+        locationCallback: LocationCallback
+    ) {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+    }
+
+    private fun showLocationSuccessMessage(location: Location) {
+        val message = this.getString(R.string.latitude_abbrev)+ ": " + location.latitude.toString() + " " +
+                this.getString(R.string.longitude_abbrev) +": " + location.longitude.toString()
+        Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun navigateToNextStep() {
         this.findNavController().navigate(R.id.action_startFragment_to_nameFragment)
     }
 
