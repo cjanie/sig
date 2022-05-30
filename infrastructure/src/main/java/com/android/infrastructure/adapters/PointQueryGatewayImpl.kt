@@ -13,28 +13,30 @@ import kotlin.collections.ArrayList
 internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQueryGateway {
 
     override fun getPoints(): Flow<List<Point>> {
-
-
-        return this.pointDao.getPoints().map { pointsDTO ->
-            val points: MutableList<Point> = ArrayList()
-            if(!pointsDTO.isNullOrEmpty()) {
-                for(pointDto in pointsDTO) {
-                    val point = Point(
-                        pointDto.id,
-                        pointDto.latitude,
-                        pointDto.longitude,
-                        pointDto.pointName,
-                        this.getTypeEnum(pointDto.type!!),
-                        pointDto.note
-                    )
-                    points.add(point)
-                }
+        return this.pointDao.getPoints()
+            .map {
+                    pointsDTO -> this.format(pointsDTO)
             }
-            points
-        }.flowOn(Dispatchers.IO)
+            .flowOn(Dispatchers.IO)
+    }
 
-
-
+    // FORMAT TRANSFORMATION
+    private fun format(pointsDTO: List<com.android.infrastructure.entities.Point>): List<Point> {
+        val points: MutableList<Point> = ArrayList()
+        if(!pointsDTO.isNullOrEmpty()) {
+            for(pointDto in pointsDTO) {
+                val point = Point(
+                    pointDto.id,
+                    pointDto.latitude,
+                    pointDto.longitude,
+                    pointDto.pointName,
+                    this.getTypeEnum(pointDto.type!!),
+                    pointDto.note
+                )
+                points.add(point)
+            }
+        }
+        return points
     }
 
     private fun getTypeEnum(type: String) : TypeEnum {

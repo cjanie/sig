@@ -64,7 +64,12 @@ class MapsActivity: BaseActivity(), OnMapReadyCallback {
 
         // Add a marker in Piolenc and move the camera
         val piolenc = LatLng(44.178621, 4.7628292)
-        mMap.addMarker(MarkerOptions().position(piolenc).title("Piolenc"))
+        mMap.addMarker(
+            MarkerOptions()
+                .position(piolenc)
+                .title("Piolenc")
+                .snippet("Massif d'Uchaux, Vaucluse")
+        )
         mMap.moveCamera(CameraUpdateFactory.newLatLng(piolenc))
 
         val pointsObserver: Observer<List<Point>> = Observer { newPoints ->
@@ -88,5 +93,7 @@ class MapsActivity: BaseActivity(), OnMapReadyCallback {
         }
         this.mapViewModel.points.observe(this, pointsObserver)
     }
+
+
 
 }
