@@ -20,8 +20,11 @@ internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQuery
             .flowOn(Dispatchers.IO)
     }
 
-    // FORMAT TRANSFORMATION
-    private fun format(pointsDTO: List<com.android.infrastructure.entities.Point>): List<Point> {
+    // FORMAT
+    private fun format(
+        pointsDTO: List<com.android.infrastructure.entities.Point>
+    ): List<Point> {
+
         val points: MutableList<Point> = ArrayList()
         if(!pointsDTO.isNullOrEmpty()) {
             for(pointDto in pointsDTO) {
@@ -36,6 +39,7 @@ internal class PointQueryGatewayImpl(private val pointDao: PointDao): PointQuery
                 points.add(point)
             }
         }
+
         return points
     }
 

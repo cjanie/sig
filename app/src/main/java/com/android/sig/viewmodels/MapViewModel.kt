@@ -12,7 +12,12 @@ import kotlinx.coroutines.flow.last
 
 class MapViewModel(val getPointsUseCase: GetPointsUseCase): ViewModel() {
 
-    private val _points: LiveData<List<Point>> = this.getPointsUseCase.handle().asLiveData()
+    // View model action : to run the use case
+    private val _points: LiveData<List<Point>> =
+        this.getPointsUseCase.handle()
+        .asLiveData()
 
+    // View model result from running the use case
     val points: LiveData<List<Point>> = _points
+
 }
