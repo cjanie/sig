@@ -80,9 +80,7 @@ class NoteFragment: Fragment() {
 
     // View model actions
     private fun recordNote() {
-        if(!TextUtils.isEmpty(this.note.text)) {
-            this.sharedViewModel.setNote(this.note.text.toString())
-        }
+        this.sharedViewModel.setNote(this.note.text.toString())
     }
 
     private fun savePoint() {

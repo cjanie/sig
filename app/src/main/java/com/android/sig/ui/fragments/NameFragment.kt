@@ -71,9 +71,7 @@ class NameFragment: Fragment() {
     }
 
     private fun recordName() {
-        if(!TextUtils.isEmpty(this.pointName.text)) {
-            this.sharedViewModel.setPointName(this.pointName.text.toString())
-        }
+        this.sharedViewModel.setPointName(this.pointName.text.toString())
     }
 
     private fun navigate() {
