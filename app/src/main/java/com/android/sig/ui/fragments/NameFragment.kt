@@ -16,7 +16,7 @@ import com.android.sig.Launch
 import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
 
-class NameFragment: Fragment(), View.OnClickListener {
+class NameFragment: Fragment() {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -53,8 +53,8 @@ class NameFragment: Fragment(), View.OnClickListener {
         }
         this.sharedViewModel.latitude.observe(this.viewLifecycleOwner, latitudeObserver)
 
-        val pointNameObserver: Observer<String> = Observer { newPointName ->
-            this.pointName.append(newPointName)
+        val pointNameObserver: Observer<String> = Observer { pointNameResult ->
+            this.pointName.text.contentEquals(pointNameResult)
         }
         this.sharedViewModel.pointName.observe(this.viewLifecycleOwner, pointNameObserver)
 
@@ -65,21 +65,13 @@ class NameFragment: Fragment(), View.OnClickListener {
         return root
     }
 
-    override fun onClick(view: View?) {
-        if(view == this.buttonNext) {
-            this.handleClickNext()
-        }
-    }
-
     private fun handleClickNext() {
         this.recordName()
         this.navigate()
     }
 
     private fun recordName() {
-        if(!TextUtils.isEmpty(this.pointName.text)) {
-            this.sharedViewModel.setPointName(this.pointName.text.toString())
-        }
+        this.sharedViewModel.setPointName(this.pointName.text.toString())
     }
 
     private fun navigate() {

@@ -9,10 +9,17 @@ import com.android.sig.viewmodelfactories.SharedViewModelFactory
 
 class Launch: Application() {
 
+    // Dependencies provider
     private val di by lazy { DI(this) }
 
-    val sharedViewModelFactory by lazy { SharedViewModelFactory(SavePointUseCase(this.di.pointCommandGateway())) }
+    // Where to Instantiate Use Cases by Dependencies Injection
 
-    val mapViewModelFactory by lazy { MapViewModelFactory(GetPointsUseCase(this.di.pointQueryGateway())) }
+    val sharedViewModelFactory by lazy {
+        SharedViewModelFactory(SavePointUseCase(this.di.pointCommandGateway()))
+    }
+
+    val mapViewModelFactory by lazy {
+        MapViewModelFactory(GetPointsUseCase(this.di.pointQueryGateway()))
+    }
 
 }

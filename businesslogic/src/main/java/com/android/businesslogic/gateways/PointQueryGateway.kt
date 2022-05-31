@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface PointQueryGateway {
 
     fun getPoints(): Flow<List<Point>>
+
 }

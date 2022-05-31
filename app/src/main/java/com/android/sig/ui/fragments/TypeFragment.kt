@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -16,7 +15,9 @@ import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.domain.enums.TypeVisitor
-import com.android.sig.Launch
+import com.android.sig.ui.enums.SavePointActionResponseEnum
+import com.android.sig.ui.enums.SavePointActionResponseVisitor
+import com.android.sig.utils.MessageHandler
 
 class TypeFragment: Fragment() {
 
@@ -30,6 +31,8 @@ class TypeFragment: Fragment() {
 
     private lateinit var buttonSave: Button
 
+    private val messageHandler = MessageHandler()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,7 +45,11 @@ class TypeFragment: Fragment() {
         this.buttonSave = root.findViewById(R.id.button_type_save)
 
         this.types.setOnCheckedChangeListener { radioGroup, _ ->
+
+            // Call to view model actions
+
             val checkedRadioButtonId: Int = radioGroup.checkedRadioButtonId
+
             if(checkedRadioButtonId == R.id.ruin) {
                 this.sharedViewModel.setType(TypeEnum.RUIN)
             }
@@ -61,40 +68,47 @@ class TypeFragment: Fragment() {
             if(checkedRadioButtonId == R.id.other_type) {
                 this.sharedViewModel.setType(TypeEnum.OTHER_TYPE)
             }
+
+            this.sharedViewModel.resetSavePointActionResponse()
         }
 
-        val typeObserver = Observer<TypeEnum> { type ->
-            if(type != null)
-                this.types.check(this.getRadioButtonId(type))
+        // Listening to the view model results of actions
+        val typeObserver = Observer<TypeEnum> { typeResult ->
+            if(typeResult != null)
+                this.types.check(this.getRadioButtonId(typeResult))
         }
         this.sharedViewModel.type.observe(this.viewLifecycleOwner, typeObserver)
 
-        val nameObserver = Observer<String> { newName ->
-            this.pointName.text = newName
+        val nameObserver = Observer<String> { nameResult ->
+            this.pointName.text = nameResult
         }
         this.sharedViewModel.pointName.observe(this.viewLifecycleOwner, nameObserver)
+
+        // Listening to the view model result of the save point action
+        val savePointActionResponseObserver = Observer<SavePointActionResponseEnum> { actionResponseResult ->
+            if(actionResponseResult != null) {
+                this.handleSavePointActionResponse(actionResponseResult)
+            }
+        }
+        this.sharedViewModel.savePointActionResponse.observe(this.viewLifecycleOwner, savePointActionResponseObserver)
+
+        // Click listeners to call action of the view model
+        this.buttonSave.setOnClickListener {
+            this.sharedViewModel.savePoint()
+        }
 
         this.buttonAddNote.setOnClickListener {
             this.navigate(R.id.action_typeFragment_to_noteFragment)
         }
 
-        this.buttonSave.setOnClickListener {
-
-            try {
-                this.sharedViewModel.savePoint()
-                this.sharedViewModel.reset()
-                this.navigate(R.id.action_typeFragment_to_startFragment)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this.context, e.javaClass.simpleName, Toast.LENGTH_LONG).show()
-            }
-
-        }
-        return root
+      return root
     }
 
+    // Visitor pattern to update radio button checked
     private fun getRadioButtonId(type: TypeEnum): Int {
+
         val visitor = object : TypeVisitor<Int> {
+
             override fun visitRuin(): Int {
                 return R.id.ruin
             }
@@ -123,7 +137,35 @@ class TypeFragment: Fragment() {
         return type.accept(visitor)
     }
 
+    // Visitor pattern to handle save point action response
+    private fun handleSavePointActionResponse(savePointActionResponseEnum: SavePointActionResponseEnum) {
+
+        val visitor = object: SavePointActionResponseVisitor {
+
+            override fun visitSuccess() {
+                sharedViewModel.reset()
+                navigate(R.id.action_typeFragment_to_startFragment)
+                showToast(savePointActionResponseEnum.toString())
+            }
+
+            override fun visitMissingTypeError() {
+                showToast(savePointActionResponseEnum.toString())
+            }
+
+            override fun visitNoAvailableGeolocationError() {
+                navigate(R.id.action_typeFragment_to_startFragment)
+            }
+        }
+
+        savePointActionResponseEnum.accept(visitor)
+    }
+
+    // Nav
     private fun navigate(actionId: Int) {
         this.findNavController().navigate(actionId)
+    }
+
+    private fun showToast(message: String) {
+        this.messageHandler.showToast(this.requireContext(), message)
     }
 }
