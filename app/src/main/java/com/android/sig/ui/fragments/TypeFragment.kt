@@ -92,14 +92,13 @@ class TypeFragment: Fragment() {
         }
         this.sharedViewModel.savePointActionResponse.observe(this.viewLifecycleOwner, savePointActionResponseObserver)
 
-        // Click listeners to call actions of the view model
-        this.buttonAddNote.setOnClickListener {
-            this.sharedViewModel.resetSavePointActionResponse()
-            this.navigate(R.id.action_typeFragment_to_noteFragment)
-        }
-
+        // Click listeners to call action of the view model
         this.buttonSave.setOnClickListener {
             this.sharedViewModel.savePoint()
+        }
+
+        this.buttonAddNote.setOnClickListener {
+            this.navigate(R.id.action_typeFragment_to_noteFragment)
         }
 
       return root
@@ -146,10 +145,11 @@ class TypeFragment: Fragment() {
             override fun visitSuccess() {
                 sharedViewModel.reset()
                 navigate(R.id.action_typeFragment_to_startFragment)
+                showToast(savePointActionResponseEnum.toString())
             }
 
             override fun visitMissingTypeError() {
-
+                showToast(savePointActionResponseEnum.toString())
             }
 
             override fun visitNoAvailableGeolocationError() {
@@ -158,7 +158,6 @@ class TypeFragment: Fragment() {
         }
 
         savePointActionResponseEnum.accept(visitor)
-        showToast(savePointActionResponseEnum.toString())
     }
 
     // Nav

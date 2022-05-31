@@ -96,6 +96,7 @@ class NoteFragment: Fragment() {
             override fun visitSuccess() {
                 sharedViewModel.reset()
                 navigate(R.id.action_noteFragment_to_startFragment)
+                showToast(savePointActionResponseEnum.toString())
             }
 
             override fun visitMissingTypeError() {
@@ -108,8 +109,6 @@ class NoteFragment: Fragment() {
         }
 
         savePointActionResponseEnum.accept(visitor)
-        showToast(savePointActionResponseEnum.toString())
-
     }
 
     // Nav
