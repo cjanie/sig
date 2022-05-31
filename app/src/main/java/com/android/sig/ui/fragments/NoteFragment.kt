@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -16,9 +15,9 @@ import androidx.navigation.fragment.findNavController
 import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
 import com.android.businesslogic.domain.enums.TypeEnum
-import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
-import com.android.sig.Launch
-import kotlinx.coroutines.runBlocking
+import com.android.sig.ui.enums.SavePointActionResponseEnum
+import com.android.sig.ui.enums.SavePointActionResponseVisitor
+import com.android.sig.utils.MessageHandler
 
 class NoteFragment: Fragment() {
 
@@ -32,6 +31,8 @@ class NoteFragment: Fragment() {
 
     private lateinit var buttonSave: Button
 
+    private val messageHandler = MessageHandler()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,51 +44,82 @@ class NoteFragment: Fragment() {
         this.note = root.findViewById(R.id.note_edit)
         this.buttonSave = root.findViewById(R.id.button_save)
 
-        val nameObserver = Observer<String> {newName ->
-            this.pointName.text = newName
+        // Listening to the results of the view model
+        val nameObserver = Observer<String> {nameResult ->
+            if(!nameResult.isNullOrEmpty())
+                this.pointName.text = nameResult
         }
         this.sharedViewModel.pointName.observe(this.viewLifecycleOwner, nameObserver)
 
         val typeObserver = Observer<TypeEnum> { newType ->
-            if(newType != null) {
+            if(newType != null)
                 this.type.text = newType.toString()
-            }
         }
         this.sharedViewModel.type.observe(this.viewLifecycleOwner, typeObserver)
 
-        val noteObserver: Observer<String> = Observer { newNote ->
-            if(!newNote.isNullOrEmpty()) {
-                this.note.append(newNote)
-            }
+        val noteObserver: Observer<String> = Observer { noteResult ->
+            if(!noteResult.isNullOrEmpty())
+                this.note.text.append(noteResult)
         }
         this.sharedViewModel.note.observe(this.viewLifecycleOwner, noteObserver)
 
+        val savePointActionResponseObserver = Observer<SavePointActionResponseEnum> { actionResult ->
+            if(actionResult != null)
+                this.handleSavePointActionResponse(actionResult)
+        }
+        this.sharedViewModel.savePointActionResponse.observe(this.viewLifecycleOwner, savePointActionResponseObserver)
 
+        // Click listener call to view model action
         this.buttonSave.setOnClickListener {
             this.recordNote()
-            try {
-
-                this.sharedViewModel.savePoint()
-                this.sharedViewModel.reset()
-                this.navigate(R.id.action_noteFragment_to_startFragment)
-            } catch(e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this.context, e.javaClass.simpleName, Toast.LENGTH_LONG).show()
-                if (e is UndefinedTypeException)
-                    this.navigate(R.id.action_noteFragment_to_typeFragment)
-            }
+            this.savePoint()
         }
 
         return root
     }
 
+    // View model actions
     private fun recordNote() {
         if(!TextUtils.isEmpty(this.note.text)) {
             this.sharedViewModel.setNote(this.note.text.toString())
         }
     }
 
+    private fun savePoint() {
+        sharedViewModel.savePoint()
+    }
+
+    // Visitor pattern to handle save point action response
+    private fun handleSavePointActionResponse(savePointActionResponseEnum: SavePointActionResponseEnum) {
+        val visitor = object: SavePointActionResponseVisitor {
+
+            override fun visitSuccess() {
+                sharedViewModel.reset()
+                navigate(R.id.action_noteFragment_to_startFragment)
+            }
+
+            override fun visitMissingTypeError() {
+                navigate(R.id.action_noteFragment_to_typeFragment)
+            }
+
+            override fun visitNoAvailableGeolocationError() {
+                navigate(R.id.action_noteFragment_to_startFragment)
+            }
+        }
+
+        savePointActionResponseEnum.accept(visitor)
+        showToast(savePointActionResponseEnum.toString())
+
+    }
+
+    // Nav
     private fun navigate(actionId: Int) {
         this.findNavController().navigate(actionId)
     }
+
+    private fun showToast(message: String) {
+        this.messageHandler.showToast(this.requireContext(), message)
+    }
+
+
 }

@@ -6,9 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.businesslogic.domain.enums.TypeEnum
 import com.android.businesslogic.usecases.exceptions.NoAvailableGeolocationException
-import com.android.businesslogic.usecases.exceptions.UndefinedTypeException
+import com.android.businesslogic.usecases.exceptions.MissingTypeException
 
 import com.android.businesslogic.usecases.SavePointUseCase
+import com.android.sig.ui.enums.SavePointActionResponseEnum
 import kotlinx.coroutines.launch
 
 
@@ -28,6 +29,9 @@ class SharedViewModel(val savePointUseCase: SavePointUseCase): ViewModel() {
 
     private val _note = MutableLiveData<String>()
     val note: LiveData<String> = _note
+
+    private val _savePointActionResponse = MutableLiveData<SavePointActionResponseEnum>()
+    val savePointActionResponse = _savePointActionResponse
 
     init {
         this.reset()
@@ -60,22 +64,30 @@ class SharedViewModel(val savePointUseCase: SavePointUseCase): ViewModel() {
         this._pointName.value = ""
         this._type.value = null
         this._note.value = ""
+        this._savePointActionResponse.value = null
     }
 
-    @Throws(
-        NoAvailableGeolocationException::class,
-        UndefinedTypeException::class
-    )
+    fun resetSavePointActionResponse() {
+        this._savePointActionResponse.value = null
+    }
 
-    fun savePoint() {
-        viewModelScope.launch {
-            savePointUseCase.handle(
-                _latitude.value,
-                _longitude.value,
-                _pointName.value,
-                _type.value,
-                _note.value
-            )
+     fun savePoint() {
+        this.viewModelScope.launch {
+            try {
+                savePointUseCase.handle(
+                    _latitude.value,
+                    _longitude.value,
+                    _pointName.value,
+                    _type.value,
+                    _note.value
+                )
+                _savePointActionResponse.value = SavePointActionResponseEnum.SUCCESS
+            } catch (e: MissingTypeException) {
+                e.printStackTrace()
+                _savePointActionResponse.value = SavePointActionResponseEnum.MISSING_TYPE_ERROR
+            } catch (e: NoAvailableGeolocationException) {
+                _savePointActionResponse.value = SavePointActionResponseEnum.NO_AVAILABLE_GEOLOCATION_ERROR
+            }
         }
     }
 
