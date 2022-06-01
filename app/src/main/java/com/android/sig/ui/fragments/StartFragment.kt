@@ -36,8 +36,6 @@ class StartFragment: Fragment() {
 
     private lateinit var point: ImageView
 
-    private val locationLiveData: MutableLiveData<Location> = MutableLiveData()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
