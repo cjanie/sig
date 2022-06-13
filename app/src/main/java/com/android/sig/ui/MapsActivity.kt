@@ -1,8 +1,10 @@
 package com.android.sig.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.android.sig.Launch
@@ -54,8 +56,16 @@ class MapsActivity: BaseActivity(), OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         this.mMap = googleMap
+
+        try {
+            this.mMap.isMyLocationEnabled = true
+        } catch (e: Exception) {
+            Toast.makeText(this, e.javaClass.simpleName + " " + this.getText(R.string.request_location_permission), Toast.LENGTH_LONG).show()
+        }
 
         // Listens to the view model result of the view model action
         val pointsObserver: Observer<List<Point>> = Observer { pointsResults ->

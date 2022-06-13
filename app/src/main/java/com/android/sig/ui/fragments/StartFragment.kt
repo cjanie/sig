@@ -50,44 +50,12 @@ class StartFragment: Fragment() {
         return root
     }
 
-    @SuppressLint("MissingPermission")
     private val activityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()) { permissionIsGranted ->
-        if(permissionIsGranted) {
-
-            val fusedLocationProviderClient: FusedLocationProviderClient = LocationServices
-                .getFusedLocationProviderClient(this.requireActivity())
-
-            fusedLocationProviderClient.locationAvailability.addOnSuccessListener { locationAvailability ->
-
-                val locationCallBack = object: LocationCallback() {
-                    override fun onLocationResult(locationResult: LocationResult) {
-                        if(!locationResult.equals(null) && locationResult.locations.isNotEmpty()) {
-                            stopLocationUpdates(fusedLocationProviderClient, this)
-                            val newLocation = locationResult.locations[0]
-                            saveLocation(newLocation)
-                            showLocationSuccessMessage(newLocation)
-                        }
-                    }
-                }
-
-                if(locationAvailability.isLocationAvailable) {
-                    fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
-                        val lastLocation: Location = task.result
-                        this.saveLocation(lastLocation)
-                        this.goToNextStep()
-                    }
-
-                } else {
-                    this.showMessage(this.getString(R.string.location_not_available))
-                    this.requestLocationUpdates(
-                        fusedLocationProviderClient, locationCallBack
-                    )
-                }
-            }
-
+        ActivityResultContracts.RequestPermission()) { permissionHasBeenGranted ->
+        if(permissionHasBeenGranted) {
+            this.handleLocationPermissionHasBeenGranted()
         } else {
-            //Permission is denied
+            // Permission is denied
             this.goToSettings()
         }
     }
@@ -99,6 +67,41 @@ class StartFragment: Fragment() {
     private fun saveLocation(location: Location) {
         this.sharedViewModel.setLatitude(location.latitude)
         this.sharedViewModel.setLongitude(location.longitude)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun handleLocationPermissionHasBeenGranted() {
+        val fusedLocationProviderClient: FusedLocationProviderClient = LocationServices
+            .getFusedLocationProviderClient(this.requireActivity())
+
+        fusedLocationProviderClient.locationAvailability.addOnSuccessListener { locationAvailability ->
+
+            val locationCallBack = object: LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    if(!locationResult.equals(null) && locationResult.locations.isNotEmpty()) {
+                        stopLocationUpdates(fusedLocationProviderClient, this)
+                        val newLocation = locationResult.locations[0]
+                        saveLocation(newLocation)
+                        showLocationSuccessMessage(newLocation)
+                    }
+                }
+            }
+
+            if(locationAvailability.isLocationAvailable) {
+                fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
+                    val lastLocation: Location = task.result
+                    this.saveLocation(lastLocation)
+                    this.goToNextStep()
+                }
+
+            } else {
+                this.showMessage(this.getString(R.string.location_not_available))
+                this.requestLocationUpdates(
+                    fusedLocationProviderClient, locationCallBack
+                )
+            }
+        }
+
     }
 
     @SuppressLint("MissingPermission")
