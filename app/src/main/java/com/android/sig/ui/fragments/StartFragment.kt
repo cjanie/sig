@@ -21,11 +21,9 @@ import androidx.fragment.app.Fragment
 import com.android.sig.R
 import com.android.sig.viewmodels.SharedViewModel
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.android.sig.BuildConfig
 import com.android.sig.Launch
-import com.android.sig.ui.MainActivity
 import com.google.android.gms.location.*
 
 class StartFragment: Fragment() {
@@ -141,12 +139,12 @@ class StartFragment: Fragment() {
     }
 
     private fun goToSettings() {
-        val positiveButtonClick = { dialog: DialogInterface, which: Int ->
+        val positiveButtonClick = { _: DialogInterface, _: Int ->
             val intent = Intent()
             intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
             val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-            intent.setData(uri)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.data = uri
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             try {
                 this.startActivity(intent)
             } catch (e: ActivityNotFoundException) {
